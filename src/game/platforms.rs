@@ -163,6 +163,7 @@ fn platform_setup(
 ) {
     for (entity, platform, mut transform) in platforms.iter_mut() {
         transform.scale = Vec3::ONE; //this is scuffed
+        transform.translation.z=2.0;
         let width = platform.width / 64;
         let Ok(mut command) = commands.get_entity(entity) else {
             continue;
