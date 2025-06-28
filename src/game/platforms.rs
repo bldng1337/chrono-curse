@@ -169,7 +169,7 @@ fn platform_setup(
             continue;
         };
         command
-            .insert(Collider::rectangle(platform.width as f32, 64.0))
+            .insert(Collider::rectangle(platform.width as f32, 32.0))
             .insert(RigidBody::Kinematic)
             .insert(Friction::new(1.0));
 

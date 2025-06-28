@@ -8,18 +8,22 @@ use bevy::prelude::*;
 use bevy_ecs_ldtk::{LdtkEntity, app::LdtkEntityAppExt};
 use bevy_tnua::{
     TnuaAction, TnuaAnimatingState,
-    builtins::TnuaBuiltinJumpState,
+    builtins::{TnuaBuiltinDash, TnuaBuiltinJumpState},
     math::Float,
     prelude::{TnuaBuiltinJump, TnuaBuiltinWalk, TnuaController},
 };
 use bevy_tnua_avian2d::TnuaAvian2dSensorShape;
 
 use crate::{
-    asset_tracking::LoadResource, game::{
+    AppSystems,
+    asset_tracking::LoadResource,
+    game::{
         animate::{AnimationConfig, Directional},
         health::Health,
-        player::Player, ysort::{YSort, ENTITY_LAYER},
-    }, screens::Screen, AppSystems
+        player::Player,
+        ysort::{ENTITY_LAYER, YSort},
+    },
+    screens::Screen,
 };
 
 pub(super) fn plugin(app: &mut App) {
@@ -54,11 +58,23 @@ enum State {
     Attacking,
 }
 
-#[derive(Clone, Default, Component)]
+#[derive(Clone, Component)]
 struct Knight {
     state: State,
     dir: bool,
     dirty: bool,
+    attackcooldown: Timer,
+}
+
+impl Default for Knight {
+    fn default() -> Self {
+        Self {
+            state: Default::default(),
+            dir: Default::default(),
+            dirty: Default::default(),
+            attackcooldown: Timer::from_seconds(1.0, TimerMode::Once),
+        }
+    }
 }
 
 #[derive(Resource, Asset, Clone, Reflect)]
@@ -123,7 +139,7 @@ fn init_knight(
             TnuaAvian2dSensorShape(Collider::rectangle(31.0, 0.0)),
             LockedAxes::ROTATION_LOCKED,
             Name::new("Knight"),
-            AnimationConfig::new(0, 3, 6, true, true),
+            AnimationConfig::new(0, 3, 8, true, true),
             Directional {
                 flipdir: true,
                 ..Default::default()
@@ -137,16 +153,18 @@ fn update_knight(
     mut query: Query<(&GlobalTransform, &mut Knight, &mut TnuaController, Entity)>,
     mut player_query: Query<(&GlobalTransform, Entity, &mut Health), With<Player>>,
     spatial_query: SpatialQuery,
+    time: Res<Time>,
 ) {
     let Ok((player, playerentity, mut health)) = player_query.single_mut() else {
         return;
     };
     let playerpos = player.translation().xy();
-    for (transform, mut Knight, mut controller, entity) in query.iter_mut() {
+    for (transform, mut knight, mut controller, entity) in query.iter_mut() {
+        knight.attackcooldown.tick(time.delta());
         let knightpos = transform.translation().xy();
         let mut sees_obstacle = false;
         let mut sees_player = false;
-        let mut dir = match Knight.dir {
+        let mut dir = match knight.dir {
             true => Vec2::new(1.0, 0.0),
             false => Vec2::new(-1.0, 0.0),
         };
@@ -167,12 +185,12 @@ fn update_knight(
                 sees_player = rayhit.entity == playerentity;
             }
         }
-        let mut nextstate = Knight.state.clone();
+        let mut nextstate = knight.state.clone();
         // println!("My State is: {:?}", Knight.state);
-        match Knight.state {
+        match knight.state {
             State::Roaming => {
                 if sees_obstacle {
-                    Knight.dir = !Knight.dir;
+                    knight.dir = !knight.dir;
                     dir.x = 0.0;
                 }
                 if sees_player {
@@ -180,7 +198,7 @@ fn update_knight(
                 }
             }
             State::Aggro => {
-                Knight.dir = (playerpos.x - knightpos.x) > 0.0;
+                knight.dir = (playerpos.x - knightpos.x) > 0.0;
                 let distance = knightpos.distance_squared(playerpos);
                 if distance > (2000.0).powi(2) && !sees_player {
                     nextstate = State::Roaming;
@@ -188,24 +206,24 @@ fn update_knight(
                 if sees_obstacle {
                     dir.x = 0.0;
                 }
-                if distance < (50.0).powi(2) {
+                if distance < (200.0).powi(2) && knight.attackcooldown.finished() {
+                    knight.attackcooldown.reset();
                     nextstate = State::Attacking;
                     dir.x = 0.0;
                 }
             }
             State::Attacking => {
-                let dir=(playerpos-knightpos).normalize()*300.0;
-                Knight.dir = (playerpos.x - knightpos.x) > 0.0;
-                controller.basis(TnuaBuiltinWalk {
-                    // The `desired_velocity` determines how the character will move.
-                    desired_velocity: Vec3::new(dir.x, dir.y, 0.0),
-                    acceleration: Float::INFINITY,
-                    // The `float_height` must be greater (even if by little) from the distance between the
-                    // character's center and the lowest point of its collider.
-                    float_height: 33.0,
-                    // `TnuaBuiltinWalk` has many other fields for customizing the movement - but they have
-                    // sensible defaults. Refer to the `TnuaBuiltinWalk`'s documentation to learn what they do.
-                    ..TnuaBuiltinWalk::default()
+                let dir = (playerpos - knightpos).normalize();
+                knight.dir = (playerpos.x - knightpos.x) > 0.0;
+                controller.action(TnuaBuiltinDash {
+                    displacement: Vec3::new(dir.x, dir.y, 0.0) * 300.0,
+                    speed: 600.0,
+                    allow_in_air: true,
+                    acceleration: 800.0,
+                    // acceleration: Float::INFINITY,
+                    brake_acceleration: Float::INFINITY,
+                    brake_to_speed: 250.0,
+                    ..TnuaBuiltinDash::default()
                 });
                 let res = spatial_query.shape_intersections(
                     &Collider::circle(50.0),
@@ -220,9 +238,9 @@ fn update_knight(
                 // dir.x = 0.0;
             }
         }
-        if nextstate != Knight.state {
-            Knight.state = nextstate;
-            Knight.dirty = true;
+        if nextstate != knight.state {
+            knight.state = nextstate;
+            knight.dirty = true;
         }
         controller.basis(TnuaBuiltinWalk {
             // The `desired_velocity` determines how the character will move.
@@ -257,7 +275,7 @@ fn animate_knight(
                     layout: assets.atlas_walk.clone(),
                     index: 0,
                 });
-                animconf.set_frames(0, 4);
+                animconf.set_frames(0, 3);
                 animconf.set_looping(true);
                 animconf.play();
             }
@@ -267,7 +285,7 @@ fn animate_knight(
                     layout: assets.atlas_attack.clone(),
                     index: 0,
                 });
-                animconf.set_frames(0, 3);
+                animconf.set_frames(0, 8);
                 animconf.set_looping(false);
                 animconf.play();
             }
