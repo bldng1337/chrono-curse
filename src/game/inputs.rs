@@ -55,11 +55,13 @@ fn init_inputs(mut commands: Commands) {
 
 fn movement(
     actions: Single<&Actions<Default>>,
-    mut query: Query<&mut TnuaController, With<Player>>,
+    mut query: Query<(&mut TnuaController, &mut Player)>,
+    time: Res<Time>,
 ) {
-    let Ok(mut controller) = query.single_mut() else {
+    let Ok((mut controller, mut player)) = query.single_mut() else {
         return;
     };
+    player.dashtimer.tick(time.delta());
     let actions = actions.into_inner();
 
     let direction = actions.value::<Move>().unwrap();
@@ -76,11 +78,15 @@ fn movement(
         // sensible defaults. Refer to the `TnuaBuiltinWalk`'s documentation to learn what they do.
         ..TnuaBuiltinWalk::default()
     });
-    if actions.state::<Dash>().unwrap() == ActionState::Fired && direction.length_squared()>0.0 {
+    if actions.state::<Dash>().unwrap() == ActionState::Fired
+        && direction.length_squared() > 0.0
+        && player.dashtimer.finished()
+    {
+        player.dashtimer.reset();
         controller.action(TnuaBuiltinDash {
             displacement: Vec3::new(direction.x, direction.y, 0.0) * 70.0,
             speed: 800.0,
-            allow_in_air:true,
+            allow_in_air: true,
             acceleration: Float::INFINITY,
             brake_acceleration: Float::INFINITY,
             brake_to_speed: 250.0,

@@ -16,11 +16,14 @@ use bevy_tnua::{
 use bevy_tnua_avian2d::TnuaAvian2dSensorShape;
 
 use crate::{
-    asset_tracking::LoadResource, game::{
+    AppSystems,
+    asset_tracking::LoadResource,
+    game::{
         animate::{AnimationConfig, Directional},
         health::Health,
-        ysort::{YSort, ENTITY_LAYER},
-    }, screens::Screen, AppSystems
+        ysort::{ENTITY_LAYER, YSort},
+    },
+    screens::Screen,
 };
 
 pub(super) fn plugin(app: &mut App) {
@@ -100,7 +103,9 @@ impl FromWorld for PlayerYoungAssets {
 }
 
 #[derive(Clone, Default, Component)]
-pub struct Player;
+pub struct Player {
+    pub dashtimer: Timer,
+}
 
 #[derive(Clone, Default, Component)]
 pub struct Book;
@@ -138,7 +143,9 @@ fn init_player(
             TnuaAnimatingState::<AnimationState>::default(),
             // This is Tnua's interface component.
             TnuaController::default(),
-            Player,
+            Player {
+                dashtimer: Timer::from_seconds(1.5, TimerMode::Once),
+            },
             // A sensor shape is not strictly necessary, but without it we'll get weird results.
             TnuaAvian2dSensorShape(Collider::rectangle(31.0, 0.0)),
             // Tnua can fix the rotation, but the character will still get rotated before it can do so.
