@@ -7,11 +7,33 @@ use avian2d::prelude::*;
 
 use crate::{game::worldgen::LevelAssets, screens::Screen};
 
+#[derive(Copy, Clone, Eq, PartialEq, Debug, Default)]
+enum Material {
+    #[default]
+    Stone,
+    Wood,
+    Spikes,
+    Other,
+}
 #[derive(Copy, Clone, Eq, PartialEq, Debug, Default, Component)]
-pub struct Wall;
-
+pub struct Wall {
+    mat: Material,
+}
+impl LdtkIntCell for Wall {
+    fn bundle_int_cell(int_grid_cell: IntGridCell, _layer_instance: &LayerInstance) -> Self {
+        Self {
+            mat: match int_grid_cell.value {
+                1 => Material::Stone,
+                2 => Material::Wood,
+                3 => Material::Spikes,
+                _ => Material::Other,
+            },
+        }
+    }
+}
 #[derive(Clone, Debug, Default, Bundle, LdtkIntCell)]
 pub struct WallBundle {
+    #[ldtk_int_cell]
     wall: Wall,
 }
 
@@ -33,27 +55,29 @@ pub struct WallBundle {
 /// 4. spawn colliders for each rectangle
 pub fn spawn_wall_collision(
     mut commands: Commands,
-    wall_query: Query<(&GridCoords, &ChildOf), Added<Wall>>,
+    wall_query: Query<(&GridCoords, &ChildOf, &Wall), Added<Wall>>,
     parent_query: Query<&ChildOf, Without<Wall>>,
     level_query: Query<(Entity, &LevelIid)>,
     level_assets: Res<LevelAssets>,
     ldtk_project_assets: Res<Assets<LdtkProject>>,
 ) {
-    println!("asd");
     /// Represents a wide wall that is 1 tile tall
     /// Used to spawn wall collisions
     #[derive(Clone, Eq, PartialEq, Debug, Default, Hash)]
     struct Plate {
         left: i32,
         right: i32,
+        half_height: bool,
+        left_half: bool,
+        right_half: bool,
     }
 
     /// A simple rectangle type representing a wall of any size
     struct Rect {
-        left: i32,
-        right: i32,
-        top: i32,
-        bottom: i32,
+        left: f32,
+        right: f32,
+        top: f32,
+        bottom: f32,
     }
 
     // Consider where the walls are
@@ -63,19 +87,22 @@ pub fn spawn_wall_collision(
     // This has two consequences in the resulting collision entities:
     // 1. it forces the walls to be split along level boundaries
     // 2. it lets us easily add the collision entities as children of the appropriate level entity
-    let mut level_to_wall_locations: HashMap<Entity, HashSet<GridCoords>> = HashMap::new();
+    let mut level_to_wall_locations: HashMap<Entity, HashMap<GridCoords, Material>> =
+        HashMap::new();
 
-    wall_query.iter().for_each(|(&grid_coords, child_of)| {
-        // An intgrid tile's direct parent will be a layer entity, not the level entity
-        // To get the level entity, you need the tile's grandparent.
-        // This is where parent_query comes in.
-        if let Ok(parent_child_of) = parent_query.get(child_of.parent()) {
-            level_to_wall_locations
-                .entry(parent_child_of.parent())
-                .or_default()
-                .insert(grid_coords);
-        }
-    });
+    wall_query
+        .iter()
+        .for_each(|(&grid_coords, child_of, wall)| {
+            // An intgrid tile's direct parent will be a layer entity, not the level entity
+            // To get the level entity, you need the tile's grandparent.
+            // This is where parent_query comes in.
+            if let Ok(parent_child_of) = parent_query.get(child_of.parent()) {
+                level_to_wall_locations
+                    .entry(parent_child_of.parent())
+                    .or_default()
+                    .insert(grid_coords, wall.mat);
+            }
+        });
 
     if !wall_query.is_empty() {
         level_query.iter().for_each(|(level_entity, level_iid)| {
@@ -102,18 +129,66 @@ pub fn spawn_wall_collision(
                 for y in 0..height {
                     let mut row_plates: Vec<Plate> = Vec::new();
                     let mut plate_start = None;
+                    let mut half_size = None;
+                    let mut lastmat = None;
+                    let mut startmat = None;
 
                     // + 1 to the width so the algorithm "terminates" plates that touch the right edge
                     for x in 0..width + 1 {
-                        match (plate_start, level_walls.contains(&GridCoords { x, y })) {
-                            (Some(s), false) => {
+                        match (
+                            plate_start,
+                            half_size,
+                            level_walls.get(&GridCoords { x, y }),
+                            level_walls.contains_key(&GridCoords { x, y: y + 1 }),
+                        ) {
+                            //Start a Rect
+                            (None, None, Some(currmat), above) => {
+                                plate_start = Some(x);
+                                lastmat = Some(currmat);
+                                startmat = Some(currmat);
+                                half_size = Some(!above);
+                            }
+                            (Some(_), Some(true), Some(currmat), false)
+                            | (Some(_), Some(false), Some(currmat), true) => {
+                                lastmat = Some(currmat);
+                            }
+                            (Some(s), Some(false), Some(currmat), false) => {
                                 row_plates.push(Plate {
                                     left: s,
                                     right: x - 1,
+                                    half_height: false,
+                                    left_half: startmat == Some(&Material::Wood),
+                                    right_half: startmat == Some(&Material::Wood),
+                                });
+                                plate_start = Some(x);
+                                lastmat = Some(currmat);
+                                startmat = Some(currmat);
+                                half_size = Some(true);
+                            }
+                            (Some(s), Some(true), Some(currmat), true) => {
+                                row_plates.push(Plate {
+                                    left: s,
+                                    right: x - 1,
+                                    half_height: true,
+                                    left_half: startmat == Some(&Material::Wood),
+                                    right_half: lastmat == Some(&Material::Wood),
+                                });
+                                plate_start = Some(x);
+                                lastmat = Some(currmat);
+                                startmat = Some(currmat);
+                                half_size = Some(false);
+                            }
+                            (Some(s), Some(halfsize), None, _) => {
+                                row_plates.push(Plate {
+                                    left: s,
+                                    right: x - 1,
+                                    half_height: halfsize,
+                                    left_half: startmat == Some(&Material::Wood),
+                                    right_half: lastmat == Some(&Material::Wood),
                                 });
                                 plate_start = None;
+                                half_size = None;
                             }
-                            (None, true) => plate_start = Some(x),
                             _ => (),
                         }
                     }
@@ -141,12 +216,24 @@ pub fn spawn_wall_collision(
                     for plate in &current_row {
                         rect_builder
                             .entry(plate.clone())
-                            .and_modify(|e| e.top += 1)
+                            .and_modify(|e| e.top += 1.0)
                             .or_insert(Rect {
-                                bottom: y as i32,
-                                top: y as i32,
-                                left: plate.left,
-                                right: plate.right,
+                                bottom: y as f32,
+                                top: if plate.half_height {
+                                    y as f32 - 0.5
+                                } else {
+                                    y as f32
+                                },
+                                left: if plate.left_half {
+                                    plate.left as f32 + 0.5
+                                } else {
+                                    plate.left as f32
+                                },
+                                right: if plate.right_half {
+                                    plate.right as f32 - 0.5
+                                } else {
+                                    plate.right as f32
+                                },
                             });
                     }
                     prev_row = current_row;
@@ -169,9 +256,9 @@ pub fn spawn_wall_collision(
                             .insert(RigidBody::Static)
                             .insert(Friction::new(1.0))
                             .insert(Transform::from_xyz(
-                                (wall_rect.left + wall_rect.right + 1) as f32 * grid_size as f32
+                                (wall_rect.left + wall_rect.right + 1.0) as f32 * grid_size as f32
                                     / 2.,
-                                (wall_rect.bottom + wall_rect.top + 1) as f32 * grid_size as f32
+                                (wall_rect.bottom + wall_rect.top + 1.0) as f32 * grid_size as f32
                                     / 2.,
                                 0.,
                             ))
@@ -186,8 +273,9 @@ pub fn spawn_wall_collision(
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
-        spawn_wall_collision.run_if(in_state(Screen::WorldGen)),
+        spawn_wall_collision.run_if(in_state(Screen::WorldGen).or(in_state(Screen::Gameplay))),
     );
     app.register_ldtk_int_cell_for_layer::<WallBundle>("collider", 1);
     app.register_ldtk_int_cell_for_layer::<WallBundle>("collider", 2);
+    app.register_ldtk_int_cell_for_layer::<WallBundle>("collider", 3);
 }
