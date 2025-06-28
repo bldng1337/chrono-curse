@@ -16,13 +16,11 @@ use bevy_tnua::{
 use bevy_tnua_avian2d::TnuaAvian2dSensorShape;
 
 use crate::{
-    AppSystems,
-    asset_tracking::LoadResource,
-    game::{
+    asset_tracking::LoadResource, game::{
         animate::{AnimationConfig, Directional},
         health::Health,
-    },
-    screens::Screen,
+        ysort::{YSort, ENTITY_LAYER},
+    }, screens::Screen, AppSystems
 };
 
 pub(super) fn plugin(app: &mut App) {
@@ -129,8 +127,10 @@ fn init_player(
     };
     commands
         .spawn((
+            //Player
             transform,
             Health::new(100.0),
+            YSort::new(ENTITY_LAYER, 64.0),
             // The player character needs to be configured as a dynamic rigid body of the physics
             // engine.
             RigidBody::Dynamic,
@@ -158,6 +158,7 @@ fn init_player(
             },
         ))
         .with_child((
+            //Book
             Transform::from_xyz(35.0, 10.0, 1.0),
             Book,
             Sprite {
@@ -169,6 +170,7 @@ fn init_player(
             AnimationConfig::new(0, 7, 8, true, true),
         ))
         .with_child((
+            //Camera
             Camera2d,
             Camera {
                 clear_color: ClearColorConfig::Custom(Color::BLACK),

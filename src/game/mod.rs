@@ -8,6 +8,7 @@ mod platforms;
 mod animate;
 mod enemies;
 mod health;
+mod ysort;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
@@ -19,5 +20,6 @@ pub(super) fn plugin(app: &mut App) {
         animate::plugin,
         enemies::plugin,
         health::plugin,
+        ysort::plugin,
     ));
 }

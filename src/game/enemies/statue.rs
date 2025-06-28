@@ -15,14 +15,11 @@ use bevy_tnua::{
 use bevy_tnua_avian2d::TnuaAvian2dSensorShape;
 
 use crate::{
-    AppSystems,
-    asset_tracking::LoadResource,
-    game::{
+    asset_tracking::LoadResource, game::{
         animate::{AnimationConfig, Directional},
         health::Health,
-        player::Player,
-    },
-    screens::Screen,
+        player::Player, ysort::{YSort, ENTITY_LAYER},
+    }, screens::Screen, AppSystems
 };
 
 pub(super) fn plugin(app: &mut App) {
@@ -118,6 +115,7 @@ fn init_statue(
                 custom_size: Some(Vec2::new(100.0, 70.0)),
                 ..Default::default()
             },
+            YSort::new(ENTITY_LAYER, 64.0),
             RigidBody::Dynamic,
             Collider::capsule(16.0, 32.0),
             // TnuaAnimatingState::<AnimationState>::default(),

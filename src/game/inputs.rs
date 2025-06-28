@@ -71,12 +71,19 @@ fn movement(
         // The `float_height` must be greater (even if by little) from the distance between the
         // character's center and the lowest point of its collider.
         float_height: 33.0,
+        air_acceleration: 500.0,
         // `TnuaBuiltinWalk` has many other fields for customizing the movement - but they have
         // sensible defaults. Refer to the `TnuaBuiltinWalk`'s documentation to learn what they do.
         ..TnuaBuiltinWalk::default()
     });
-    if actions.state::<Dash>().unwrap() == ActionState::Fired {
+    if actions.state::<Dash>().unwrap() == ActionState::Fired && direction.length_squared()>0.0 {
         controller.action(TnuaBuiltinDash {
+            displacement: Vec3::new(direction.x, direction.y, 0.0) * 70.0,
+            speed: 800.0,
+            allow_in_air:true,
+            acceleration: Float::INFINITY,
+            brake_acceleration: Float::INFINITY,
+            brake_to_speed: 250.0,
             ..TnuaBuiltinDash::default()
         });
     }
