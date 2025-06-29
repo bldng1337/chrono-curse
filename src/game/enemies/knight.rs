@@ -15,15 +15,9 @@ use bevy_tnua::{
 use bevy_tnua_avian2d::TnuaAvian2dSensorShape;
 
 use crate::{
-    AppSystems,
-    asset_tracking::LoadResource,
-    game::{
-        animate::{AnimationConfig, Directional},
-        health::Health,
-        player::Player,
-        ysort::{ENTITY_LAYER, YSort},
-    },
-    screens::Screen,
+    asset_tracking::LoadResource, game::{
+        age::Timed, animate::{AnimationConfig, Directional}, health::Health, player::Player, ysort::{YSort, ENTITY_LAYER}
+    }, screens::Screen, AppSystems
 };
 
 pub(super) fn plugin(app: &mut App) {
@@ -122,6 +116,7 @@ fn init_knight(
         };
         transform.translation.z = 2.0;
         command.insert((
+            Timed::default(),
             Sprite {
                 image: assets.sprite_walk.clone(),
                 texture_atlas: Some(TextureAtlas {

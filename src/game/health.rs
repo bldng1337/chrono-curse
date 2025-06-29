@@ -15,7 +15,7 @@ pub(super) fn plugin(app: &mut App) {
 
 #[derive(Component)]
 pub struct Health {
-    health: f32,
+    pub(crate) health: f32,
     hurt_time: Timer,
 }
 

@@ -2,10 +2,18 @@ use bevy::prelude::*;
 use bevy_enhanced_input::prelude::*;
 use bevy_tnua::{builtins::TnuaBuiltinDash, math::Float, prelude::*};
 
-use crate::{AppSystems, game::player::Player, screens::Screen};
+use crate::{
+    AppSystems,
+    game::{age::Aged, player::Player},
+    screens::Screen,
+};
 
 #[derive(InputContext)]
 struct Default;
+
+#[derive(Debug, InputAction)]
+#[input_action(output = bool)]
+struct Turnback;
 
 #[derive(Debug, InputAction)]
 #[input_action(output = bool)]
@@ -41,6 +49,7 @@ fn init_inputs(mut commands: Commands) {
         KeyCode::ShiftRight,
         GamepadButton::Start,
     ));
+    actions.bind::<Turnback>().to((KeyCode::KeyR,));
     actions
         .bind::<Move>()
         .to((
@@ -55,10 +64,10 @@ fn init_inputs(mut commands: Commands) {
 
 fn movement(
     actions: Single<&Actions<Default>>,
-    mut query: Query<(&mut TnuaController, &mut Player)>,
+    mut query: Query<(&mut TnuaController, &mut Aged, &mut Player)>,
     time: Res<Time>,
 ) {
-    let Ok((mut controller, mut player)) = query.single_mut() else {
+    let Ok((mut controller, mut aged, mut player)) = query.single_mut() else {
         return;
     };
     player.dashtimer.tick(time.delta());
@@ -78,6 +87,7 @@ fn movement(
         // sensible defaults. Refer to the `TnuaBuiltinWalk`'s documentation to learn what they do.
         ..TnuaBuiltinWalk::default()
     });
+    aged.try_set_turnback(actions.state::<Turnback>().unwrap() == ActionState::Fired);
     if actions.state::<Dash>().unwrap() == ActionState::Fired
         && direction.length_squared() > 0.0
         && player.dashtimer.finished()
