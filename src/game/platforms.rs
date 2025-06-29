@@ -2,7 +2,7 @@ use avian2d::prelude::*;
 use bevy::prelude::*;
 use bevy_ecs_ldtk::{prelude::*, utils::ldtk_pixel_coords_to_translation_pivoted};
 
-use crate::{AppSystems, asset_tracking::LoadResource, screens::Screen};
+use crate::{AppSystems, asset_tracking::LoadResource, game::age::Timed, screens::Screen};
 
 pub(super) fn plugin(app: &mut App) {
     app.load_resource::<PlatformAssets>();
@@ -163,7 +163,7 @@ fn platform_setup(
 ) {
     for (entity, platform, mut transform) in platforms.iter_mut() {
         transform.scale = Vec3::ONE; //this is scuffed
-        transform.translation.z=2.0;
+        transform.translation.z = 2.0;
         let width = platform.width / 64;
         let Ok(mut command) = commands.get_entity(entity) else {
             continue;
@@ -171,7 +171,8 @@ fn platform_setup(
         command
             .insert(Collider::rectangle(platform.width as f32, 32.0))
             .insert(RigidBody::Kinematic)
-            .insert(Friction::new(1.0));
+            .insert(Friction::new(1.0))
+            .insert(Timed::default());
 
         let startoffset = -platform.width / 2 + 32;
         for i in 0..width {

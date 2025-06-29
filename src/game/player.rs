@@ -19,6 +19,7 @@ use crate::{
     AppSystems,
     asset_tracking::LoadResource,
     game::{
+        age::{Aged, Timed},
         animate::{AnimationConfig, Directional},
         health::Health,
         ysort::{ENTITY_LAYER, YSort},
@@ -164,6 +165,7 @@ fn init_player(
                 ..Default::default()
             },
         ))
+        .insert((Timed::default(), Aged::default()))
         .with_child((
             //Book
             Transform::from_xyz(35.0, 10.0, 1.0),

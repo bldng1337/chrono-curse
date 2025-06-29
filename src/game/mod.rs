@@ -9,6 +9,7 @@ mod animate;
 mod enemies;
 mod health;
 mod ysort;
+mod age;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
@@ -21,5 +22,6 @@ pub(super) fn plugin(app: &mut App) {
         enemies::plugin,
         health::plugin,
         ysort::plugin,
+        age::plugin,
     ));
 }
