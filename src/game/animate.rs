@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use crate::{asset_tracking::LoadResource, screens::Screen, AppSystems, PausableSystems};
+use crate::{AppSystems, PausableSystems, asset_tracking::LoadResource, screens::Screen};
 use avian2d::prelude::LinearVelocity;
 use bevy::prelude::*;
 
@@ -13,7 +13,7 @@ pub(super) fn plugin(app: &mut App) {
             .run_if(in_state(Screen::Gameplay)),
     );
     app.add_systems(
-        Update,
+        PreUpdate,
         update_directions
             .in_set(AppSystems::Update)
             .in_set(PausableSystems)

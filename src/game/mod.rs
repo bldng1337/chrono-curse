@@ -1,15 +1,16 @@
 use bevy::prelude::*;
 
-pub mod worldgen;
-mod player;
-mod world;
-mod inputs;
-mod platforms;
+mod age;
 mod animate;
 mod enemies;
 mod health;
+mod inputs;
+mod platforms;
+mod player;
+mod projectile;
+mod world;
+pub mod worldgen;
 mod ysort;
-mod age;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
@@ -23,5 +24,6 @@ pub(super) fn plugin(app: &mut App) {
         health::plugin,
         ysort::plugin,
         age::plugin,
+        projectile::plugin,
     ));
 }

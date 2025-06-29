@@ -176,7 +176,7 @@ fn record(
                 timed.history.pop_front();
             }
         }
-        timed.currtime += elapsed / 2.0;
+        timed.currtime += elapsed / 1.5;
         timed.currentsnapshot = None;
         let time = timed.currtime;
         timed.history.push_back(Snapshot {
