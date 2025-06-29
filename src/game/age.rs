@@ -3,17 +3,20 @@ use std::collections::VecDeque;
 use bevy::prelude::*;
 use bevy_egui::egui::lerp;
 
-use crate::{AppSystems, game::health::Health, screens::Screen};
+use crate::{game::health::Health, screens::Screen, AppSystems, PausableSystems};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
-        record.run_if(in_state(Screen::Gameplay).and(not(should_turnback))),
+        record
+            .in_set(PausableSystems)
+            .run_if(in_state(Screen::Gameplay).and(not(should_turnback))),
     );
     app.add_systems(
         Update,
         time_reverse
             .in_set(AppSystems::Update)
+            .in_set(PausableSystems)
             .run_if(in_state(Screen::Gameplay).and(should_turnback)),
     );
 }
@@ -39,7 +42,7 @@ impl Default for Aged {
         Self {
             time: 100.0,
             turnback: false,
-            record: Timer::from_seconds(0.5, TimerMode::Once),
+            record: Timer::from_seconds(0.2, TimerMode::Once),
         }
     }
 }
@@ -165,10 +168,11 @@ fn record(
     if !aged.record.finished() {
         return;
     }
+    const MAX: usize = 400;
     let elapsed = aged.record.elapsed_secs_f64();
     for (transform, health, mut timed) in query.iter_mut() {
-        if timed.history.len() > 200 {
-            for _ in 0..(timed.history.len() - 200) {
+        if timed.history.len() > MAX {
+            for _ in 0..(timed.history.len() - MAX) {
                 timed.history.pop_front();
             }
         }
@@ -182,8 +186,8 @@ fn record(
         });
     }
     for (transform, mut timed) in no_health_query.iter_mut() {
-        if timed.history.len() > 200 {
-            for _ in 0..(timed.history.len() - 200) {
+        if timed.history.len() > MAX {
+            for _ in 0..(timed.history.len() - MAX) {
                 timed.history.pop_front();
             }
         }

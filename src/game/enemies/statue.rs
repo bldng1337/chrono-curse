@@ -15,7 +15,7 @@ use bevy_tnua::{
 use bevy_tnua_avian2d::TnuaAvian2dSensorShape;
 
 use crate::{
-    AppSystems,
+    AppSystems, PausableSystems,
     asset_tracking::LoadResource,
     game::{
         age::Timed,
@@ -34,12 +34,14 @@ pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         init_statue
+            .in_set(PausableSystems)
             .in_set(AppSystems::Update)
             .run_if(in_state(Screen::WorldGen)),
     );
     app.add_systems(
         Update,
         update_statue
+            .in_set(PausableSystems)
             .in_set(AppSystems::Update)
             .run_if(in_state(Screen::Gameplay)),
     );

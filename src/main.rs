@@ -14,9 +14,9 @@ mod theme;
 
 use avian2d::{
     PhysicsPlugins,
-    prelude::{Gravity, PhysicsDebugPlugin},
+    prelude::{Gravity, Physics, PhysicsDebugPlugin},
 };
-use bevy::{asset::AssetMetaCheck, prelude::*};
+use bevy::{asset::AssetMetaCheck, ecs::schedule::ScheduleLabel, prelude::*};
 use bevy_ecs_ldtk::LdtkPlugin;
 use bevy_enhanced_input::prelude::*;
 use bevy_light_2d::prelude::Light2dPlugin;
@@ -72,7 +72,7 @@ impl Plugin for AppPlugin {
             theme::plugin,
         ))
         .insert_resource(Gravity(Vec2::NEG_Y * 19.6 * 38.0));
-
+        app.insert_resource(Time::<Physics>::default());
         // Order new `AppSystems` variants by adding them here:
         app.configure_sets(
             Update,
@@ -114,6 +114,9 @@ struct Pause(pub bool);
 /// A system set for systems that shouldn't run while the game is paused.
 #[derive(SystemSet, Copy, Clone, Eq, PartialEq, Hash, Debug)]
 struct PausableSystems;
+
+#[derive(Copy, Clone, Eq, PartialEq, Hash, Debug, ScheduleLabel)]
+struct PausableFixedSystems;
 
 fn spawn_camera(mut commands: Commands) {
     commands.spawn((Name::new("Camera"), Camera2d));

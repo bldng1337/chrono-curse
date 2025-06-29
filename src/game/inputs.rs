@@ -3,7 +3,7 @@ use bevy_enhanced_input::prelude::*;
 use bevy_tnua::{builtins::TnuaBuiltinDash, math::Float, prelude::*};
 
 use crate::{
-    AppSystems,
+    AppSystems, PausableSystems,
     game::{age::Aged, player::Player},
     screens::Screen,
 };
@@ -35,6 +35,7 @@ pub(super) fn plugin(app: &mut App) {
         Update,
         movement
             .in_set(AppSystems::Update)
+            .in_set(PausableSystems)
             .run_if(in_state(Screen::Gameplay)),
     );
 }
@@ -82,7 +83,7 @@ fn movement(
         // The `float_height` must be greater (even if by little) from the distance between the
         // character's center and the lowest point of its collider.
         float_height: 33.0,
-        air_acceleration: 500.0,
+        air_acceleration: 800.0,
         // `TnuaBuiltinWalk` has many other fields for customizing the movement - but they have
         // sensible defaults. Refer to the `TnuaBuiltinWalk`'s documentation to learn what they do.
         ..TnuaBuiltinWalk::default()

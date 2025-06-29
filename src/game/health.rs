@@ -2,13 +2,14 @@ use std::time::Duration;
 
 use bevy::prelude::*;
 
-use crate::{AppSystems, screens::Screen};
+use crate::{screens::Screen, AppSystems, PausableSystems};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         tick_timer
             .in_set(AppSystems::Update)
+            .in_set(PausableSystems)
             .run_if(in_state(Screen::Gameplay)),
     );
 }

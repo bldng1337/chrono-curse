@@ -16,8 +16,12 @@ use bevy_tnua_avian2d::TnuaAvian2dSensorShape;
 
 use crate::{
     asset_tracking::LoadResource, game::{
-        age::Timed, animate::{AnimationConfig, Directional}, health::Health, player::Player, ysort::{YSort, ENTITY_LAYER}
-    }, screens::Screen, AppSystems
+        age::Timed,
+        animate::{AnimationConfig, Directional},
+        health::Health,
+        player::Player,
+        ysort::{YSort, ENTITY_LAYER},
+    }, screens::Screen, AppSystems, PausableSystems
 };
 
 pub(super) fn plugin(app: &mut App) {
@@ -33,12 +37,14 @@ pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         update_knight
+            .in_set(PausableSystems)
             .in_set(AppSystems::Update)
             .run_if(in_state(Screen::Gameplay)),
     );
     app.add_systems(
         Update,
         animate_knight
+            .in_set(PausableSystems)
             .in_set(AppSystems::Update)
             .run_if(in_state(Screen::Gameplay)),
     );
