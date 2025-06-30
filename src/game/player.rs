@@ -16,7 +16,7 @@ use bevy_tnua::{
 use bevy_tnua_avian2d::TnuaAvian2dSensorShape;
 
 use crate::{
-    AppSystems, PausableSystems,
+    AgedSystems, AppSystems, PausableSystems,
     asset_tracking::LoadResource,
     game::{
         age::{Aged, Timed},
@@ -36,14 +36,14 @@ pub(super) fn plugin(app: &mut App) {
         Update,
         handle_animating
             .in_set(AppSystems::Update)
-            .in_set(PausableSystems)
+            .in_set(AgedSystems)
             .run_if(in_state(Screen::Gameplay)),
     );
     app.add_systems(
         Update,
         turn_book
             .in_set(AppSystems::Update)
-            .in_set(PausableSystems)
+            .in_set(AgedSystems)
             .run_if(in_state(Screen::Gameplay)),
     );
 
@@ -86,7 +86,7 @@ impl FromWorld for PlayerYoungAssets {
         let layout = TextureAtlasLayout::from_grid(UVec2::new(704, 704), 3, 1, None, None);
         let atlas_idle = texture_atlas_layouts.add(layout);
         let layout = TextureAtlasLayout::from_grid(UVec2::new(320, 320), 6, 1, None, None);
-        let atlas_run = texture_atlas_layouts.add(layout);
+        let atlas_run: Handle<TextureAtlasLayout> = texture_atlas_layouts.add(layout);
         let layout = TextureAtlasLayout::from_grid(UVec2::new(320, 320), 8, 1, None, None);
         let atlas_jump = texture_atlas_layouts.add(layout);
         let layout = TextureAtlasLayout::from_grid(UVec2::new(280, 280), 8, 1, None, None);

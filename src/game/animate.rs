@@ -1,6 +1,8 @@
 use std::time::Duration;
 
-use crate::{AppSystems, PausableSystems, asset_tracking::LoadResource, screens::Screen};
+use crate::{
+    asset_tracking::LoadResource, game::age::Dead, screens::Screen, AgedSystems, AppSystems, PausableSystems
+};
 use avian2d::prelude::LinearVelocity;
 use bevy::prelude::*;
 
@@ -9,14 +11,14 @@ pub(super) fn plugin(app: &mut App) {
         Update,
         execute_animations
             .in_set(AppSystems::Update)
-            .in_set(PausableSystems)
+            .in_set(AgedSystems)
             .run_if(in_state(Screen::Gameplay)),
     );
     app.add_systems(
         PreUpdate,
         update_directions
             .in_set(AppSystems::Update)
-            .in_set(PausableSystems)
+            .in_set(AgedSystems)
             .run_if(in_state(Screen::Gameplay)),
     );
 }
@@ -25,7 +27,9 @@ pub struct Directional {
     pub flipdir: bool,
 }
 
-fn update_directions(mut query: Query<(&LinearVelocity, &mut Sprite, &Directional)>) {
+fn update_directions(
+    mut query: Query<(&LinearVelocity, &mut Sprite, &Directional), Without<Dead>>,
+) {
     for (vel, mut sprite, dir) in query.iter_mut() {
         if vel.0.x.abs() < 10.0 {
             continue;
@@ -93,7 +97,10 @@ impl AnimationConfig {
 
 // This system loops through all the sprites in the `TextureAtlas`, from  `first_sprite_index` to
 // `last_sprite_index` (both defined in `AnimationConfig`).
-fn execute_animations(time: Res<Time>, mut query: Query<(&mut AnimationConfig, &mut Sprite)>) {
+fn execute_animations(
+    time: Res<Time>,
+    mut query: Query<(&mut AnimationConfig, &mut Sprite), Without<Dead>>,
+) {
     for (mut config, mut sprite) in &mut query {
         // We track how long the current sprite has been displayed for
         config.frame_timer.tick(time.delta());

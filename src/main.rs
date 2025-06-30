@@ -86,7 +86,12 @@ impl Plugin for AppPlugin {
 
         // Set up the `Pause` state.
         app.init_state::<Pause>();
+        app.init_state::<Turnback>();
         app.configure_sets(Update, PausableSystems.run_if(in_state(Pause(false))));
+        app.configure_sets(
+            Update,
+            AgedSystems.run_if(in_state(Pause(false)).and(in_state(Turnback(false)))),
+        );
 
         // Spawn the main camera.
         app.add_systems(Startup, spawn_camera);
@@ -111,12 +116,17 @@ enum AppSystems {
 #[states(scoped_entities)]
 struct Pause(pub bool);
 
+/// Whether or not the game is rewinding.
+#[derive(States, Copy, Clone, Eq, PartialEq, Hash, Debug, Default)]
+#[states(scoped_entities)]
+struct Turnback(pub bool);
+
 /// A system set for systems that shouldn't run while the game is paused.
 #[derive(SystemSet, Copy, Clone, Eq, PartialEq, Hash, Debug)]
 struct PausableSystems;
 
-#[derive(Copy, Clone, Eq, PartialEq, Hash, Debug, ScheduleLabel)]
-struct PausableFixedSystems;
+#[derive(SystemSet, Copy, Clone, Eq, PartialEq, Hash, Debug)]
+struct AgedSystems;
 
 fn spawn_camera(mut commands: Commands) {
     commands.spawn((Name::new("Camera"), Camera2d));

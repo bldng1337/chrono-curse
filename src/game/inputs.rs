@@ -3,7 +3,7 @@ use bevy_enhanced_input::prelude::*;
 use bevy_tnua::{builtins::TnuaBuiltinDash, math::Float, prelude::*};
 
 use crate::{
-    AppSystems, PausableSystems,
+    AgedSystems, AppSystems, PausableSystems,
     game::{age::Aged, player::Player},
     screens::Screen,
 };
@@ -33,9 +33,15 @@ pub(super) fn plugin(app: &mut App) {
     // app.add_observer(apply_movement);
     app.add_systems(
         Update,
+        aged.in_set(AppSystems::Update)
+            .in_set(PausableSystems)
+            .run_if(in_state(Screen::Gameplay)),
+    );
+    app.add_systems(
+        Update,
         movement
             .in_set(AppSystems::Update)
-            .in_set(PausableSystems)
+            .in_set(AgedSystems)
             .run_if(in_state(Screen::Gameplay)),
     );
 }
@@ -63,6 +69,12 @@ fn init_inputs(mut commands: Commands) {
     commands.spawn(actions);
 }
 
+fn aged(actions: Single<&Actions<Default>>, mut aged: Single<&mut Aged, With<Player>>) {
+    let actions = actions.into_inner();
+    let mut aged = aged.into_inner();
+    aged.try_set_turnback(actions.state::<Turnback>().unwrap() == ActionState::Fired);
+}
+
 fn movement(
     actions: Single<&Actions<Default>>,
     mut query: Query<(&mut TnuaController, &mut Aged, &mut Player)>,
@@ -88,7 +100,7 @@ fn movement(
         // sensible defaults. Refer to the `TnuaBuiltinWalk`'s documentation to learn what they do.
         ..TnuaBuiltinWalk::default()
     });
-    aged.try_set_turnback(actions.state::<Turnback>().unwrap() == ActionState::Fired);
+
     if actions.state::<Dash>().unwrap() == ActionState::Fired
         && direction.length_squared() > 0.0
         && player.dashtimer.finished()
