@@ -4,13 +4,17 @@ use avian2d::{
 };
 use bevy::{ecs::system::command, platform::collections::HashSet, prelude::*};
 
-use crate::{AppSystems, PausableSystems, game::health::Health, screens::Screen};
+use crate::{
+    AgedSystems, AppSystems, PausableSystems,
+    game::{age::Dead, health::Health},
+    screens::Screen,
+};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         update
-            .in_set(PausableSystems)
+            .in_set(AgedSystems)
             .in_set(AppSystems::Update)
             .run_if(in_state(Screen::Gameplay)),
     );
@@ -26,7 +30,7 @@ pub struct Projectile {
 }
 
 fn update(
-    mut query: Query<(&Projectile, &mut Transform, &GlobalTransform, Entity)>,
+    mut query: Query<(&Projectile, &mut Transform, &GlobalTransform, Entity), Without<Dead>>,
     mut query_entity: Query<&mut Health>,
     spatial_query: SpatialQuery,
     mut command: Commands,
@@ -42,20 +46,18 @@ fn update(
             if proj.owner == collision {
                 continue;
             }
+            hit = true;
             if let Some(entity) = proj.target {
                 if entity != collision {
                     continue;
                 }
             }
-            hit = true;
             if let Ok(mut health) = query_entity.get_mut(collision) {
                 health.damage(proj.dmg);
             }
         }
         if hit {
-            if let Ok(mut entcommand) = command.get_entity(entity) {
-                entcommand.despawn();
-            }
+            command.entity(entity).insert(Dead);
         }
     }
 }

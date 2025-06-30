@@ -1,15 +1,15 @@
 use std::time::Duration;
 
-use bevy::prelude::*;
+use bevy::{ecs::system::command, prelude::*};
 
-use crate::{screens::Screen, AppSystems, PausableSystems};
+use crate::{AgedSystems, AppSystems, PausableSystems, game::age::Dead, screens::Screen};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         tick_timer
             .in_set(AppSystems::Update)
-            .in_set(PausableSystems)
+            .in_set(AgedSystems)
             .run_if(in_state(Screen::Gameplay)),
     );
 }
@@ -33,13 +33,19 @@ impl Health {
             return;
         }
         self.health -= damage;
-        println!("ouch");
         self.hurt_time = Timer::new(Duration::from_secs_f32(1.0), TimerMode::Once);
     }
 }
 
-fn tick_timer(mut query: Query<&mut Health>, time: Res<Time>) {
-    for mut health in query.iter_mut() {
+fn tick_timer(
+    mut query: Query<(&mut Health, Entity), Without<Dead>>,
+    time: Res<Time>,
+    mut commands: Commands,
+) {
+    for (mut health, entity) in query.iter_mut() {
         health.hurt_time.tick(time.delta());
+        if health.health <= 0.0 {
+            commands.entity(entity).insert(Dead);
+        }
     }
 }

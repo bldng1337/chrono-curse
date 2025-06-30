@@ -19,10 +19,10 @@ use bevy_tnua_avian2d::TnuaAvian2dSensorShape;
 use rand::Rng;
 
 use crate::{
-    AppSystems, PausableSystems,
+    AgedSystems, AppSystems, PausableSystems,
     asset_tracking::LoadResource,
     game::{
-        age::Timed,
+        age::{Dead, Timed},
         animate::{AnimationConfig, Directional},
         health::Health,
         player::Player,
@@ -45,14 +45,14 @@ pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         update_ghost
-            .in_set(PausableSystems)
+            .in_set(AgedSystems)
             .in_set(AppSystems::Update)
             .run_if(in_state(Screen::Gameplay)),
     );
     app.add_systems(
         Update,
         animate_ghost
-            .in_set(PausableSystems)
+            .in_set(AgedSystems)
             .in_set(AppSystems::Update)
             .run_if(in_state(Screen::Gameplay)),
     );
@@ -171,7 +171,7 @@ fn init_ghost(
 }
 
 fn update_ghost(
-    mut query: Query<(&GlobalTransform, &mut Ghost, &mut LinearVelocity, Entity)>,
+    mut query: Query<(&GlobalTransform, &mut Ghost, &mut LinearVelocity, Entity), Without<Dead>>,
     mut player_query: Query<(&GlobalTransform, Entity, &mut Health), With<Player>>,
     spatial_query: SpatialQuery,
     time: Res<Time>,
@@ -270,14 +270,17 @@ fn update_ghost(
 }
 
 fn animate_ghost(
-    mut query: Query<(
-        &mut Ghost,
-        &mut AnimationConfig,
-        &mut Sprite,
-        Entity,
-        &GlobalTransform,
-    )>,
-    mut player_query: Query<Entity, With<Player>>,
+    mut query: Query<
+        (
+            &mut Ghost,
+            &mut AnimationConfig,
+            &mut Sprite,
+            Entity,
+            &GlobalTransform,
+        ),
+        Without<Dead>,
+    >,
+    player_query: Query<Entity, With<Player>>,
     mut commands: Commands,
     assets: Res<GhostAssets>,
 ) {

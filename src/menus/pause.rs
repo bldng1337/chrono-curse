@@ -8,7 +8,7 @@ use crate::{Pause, menus::Menu, screens::Screen, theme::widget};
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(OnEnter(Menu::Pause), spawn_pause_menu);
 
-    app.add_systems(Update, pause_physics);
+    app.add_systems(Update, pause_physics.run_if(state_changed::<Pause>));
 
     app.add_systems(
         Update,

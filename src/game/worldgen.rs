@@ -14,7 +14,7 @@ pub(super) fn plugin(app: &mut App) {
     app.add_systems(OnEnter(Screen::WorldGen), init_world_gen);
     app.add_systems(
         Update,
-        world_gen
+        (world_gen, tick_timer)
             .in_set(AppSystems::Update)
             .run_if(in_state(Screen::WorldGen)),
     );
@@ -44,11 +44,12 @@ struct Room {
 pub struct WorldGen {
     rooms: Vec<RoomRef>,
     doors: Vec<Aabb2d>,
+    time: Timer,
 }
 
 impl WorldGen {
     pub fn is_finished(&self) -> bool {
-        self.doors.is_empty() && !self.rooms.is_empty()
+        self.doors.is_empty() && !self.rooms.is_empty() && self.time.finished()
     }
 }
 
@@ -121,7 +122,6 @@ impl From<&Level> for RoomRef {
             .filter(|ent| ent.identifier == "door")
             .map(|ent| {
                 let x = ent.px.x as f32;
-                println!("{}", ent.px.y);
                 let y = (height - ent.px.y) as f32;
                 return Aabb2d {
                     min: Vec2::new(x, y),
@@ -192,6 +192,14 @@ fn world_gen(
     worldgen.doors = doors;
 }
 
+fn tick_timer(mut world: ResMut<WorldGen>, time: Res<Time>) {
+    if world.doors.is_empty() {
+        world.time.tick(time.delta());
+    } else {
+        world.time.reset();
+    }
+}
+
 fn init_world_gen(
     mut commands: Commands,
     level_assets: Res<LevelAssets>,
@@ -211,9 +219,9 @@ fn init_world_gen(
     // rooms.shuffle(&mut rng);
     let first_room = &rooms[0];
     commands.spawn(first_room.spawn(Vec2::ZERO, ldtk));
-    println!("First {} Doors", first_room.doors.len());
     commands.insert_resource(WorldGen {
         doors: first_room.doors.clone(),
         rooms,
+        time: Timer::from_seconds(1.0, TimerMode::Once),
     });
 }

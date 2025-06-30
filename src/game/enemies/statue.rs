@@ -15,16 +15,13 @@ use bevy_tnua::{
 use bevy_tnua_avian2d::TnuaAvian2dSensorShape;
 
 use crate::{
-    AppSystems, PausableSystems,
-    asset_tracking::LoadResource,
-    game::{
-        age::Timed,
+    asset_tracking::LoadResource, game::{
+        age::{Dead, Timed},
         animate::{AnimationConfig, Directional},
         health::Health,
         player::Player,
-        ysort::{ENTITY_LAYER, YSort},
-    },
-    screens::Screen,
+        ysort::{YSort, ENTITY_LAYER},
+    }, screens::Screen, AgedSystems, AppSystems, PausableSystems
 };
 
 pub(super) fn plugin(app: &mut App) {
@@ -41,13 +38,14 @@ pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         update_statue
-            .in_set(PausableSystems)
+            .in_set(AgedSystems)
             .in_set(AppSystems::Update)
             .run_if(in_state(Screen::Gameplay)),
     );
     app.add_systems(
         Update,
         animate_statue
+            .in_set(AgedSystems)
             .in_set(AppSystems::Update)
             .run_if(in_state(Screen::Gameplay)),
     );
@@ -142,7 +140,7 @@ fn init_statue(
 }
 
 fn update_statue(
-    mut query: Query<(&GlobalTransform, &mut Statue, &mut TnuaController, Entity)>,
+    mut query: Query<(&GlobalTransform, &mut Statue, &mut TnuaController, Entity), Without<Dead>>,
     mut player_query: Query<(&GlobalTransform, Entity, &mut Health), With<Player>>,
     spatial_query: SpatialQuery,
 ) {
@@ -234,7 +232,7 @@ fn update_statue(
 }
 
 fn animate_statue(
-    mut query: Query<(&mut Statue, &mut AnimationConfig, &mut Sprite)>,
+    mut query: Query<(&mut Statue, &mut AnimationConfig, &mut Sprite), Without<Dead>>,
     assets: Res<StatueAssets>,
 ) {
     for (mut statue, mut animconf, mut sprite) in query.iter_mut() {

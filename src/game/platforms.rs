@@ -2,13 +2,18 @@ use avian2d::prelude::*;
 use bevy::prelude::*;
 use bevy_ecs_ldtk::{prelude::*, utils::ldtk_pixel_coords_to_translation_pivoted};
 
-use crate::{asset_tracking::LoadResource, game::age::Timed, screens::Screen, AppSystems, PausableSystems};
+use crate::{
+    AgedSystems, AppSystems, PausableSystems, asset_tracking::LoadResource, game::age::Timed,
+    screens::Screen,
+};
 
 pub(super) fn plugin(app: &mut App) {
     app.load_resource::<PlatformAssets>();
     app.add_systems(
         FixedUpdate,
-        platform_update.in_set(PausableSystems).run_if(in_state(Screen::Gameplay)),
+        platform_update
+            .in_set(AgedSystems)
+            .run_if(in_state(Screen::Gameplay)),
     );
     app.add_systems(
         Update,
@@ -111,7 +116,6 @@ impl LdtkEntity for Points {
         _: &AssetServer,
         _: &mut Assets<TextureAtlasLayout>,
     ) -> Self {
-        println!("Spawning Platform");
         let mut points = Vec::new();
         points.push(ldtk_pixel_coords_to_translation_pivoted(
             entity_instance.px,

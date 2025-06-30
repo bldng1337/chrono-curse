@@ -66,7 +66,6 @@ struct LightedBundleBackground {
 }
 
 fn construct_ysort_entity(entity_instance: &EntityInstance) -> YSort {
-    println!("{}",entity_instance.height);
     YSort::new(ENTITY_LAYER, entity_instance.height as f32)
 }
 
