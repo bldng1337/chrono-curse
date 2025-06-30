@@ -1,7 +1,8 @@
 use std::time::Duration;
 
 use crate::{
-    asset_tracking::LoadResource, game::age::Dead, screens::Screen, AgedSystems, AppSystems, PausableSystems
+    AgedSystems, AppSystems, PausableSystems, asset_tracking::LoadResource, game::age::Dead,
+    screens::Screen,
 };
 use avian2d::prelude::LinearVelocity;
 use bevy::prelude::*;
@@ -41,6 +42,8 @@ fn update_directions(
 
 #[derive(Component)]
 pub struct AnimationConfig {
+    txt_atlas: Option<TextureAtlas>,
+    sprite: Handle<Image>,
     first_sprite_index: usize,
     last_sprite_index: usize,
     fps: u8,
@@ -50,8 +53,18 @@ pub struct AnimationConfig {
 }
 
 impl AnimationConfig {
-    pub(crate) fn new(first: usize, last: usize, fps: u8, playing: bool, looping: bool) -> Self {
+    pub(crate) fn new(
+        first: usize,
+        last: usize,
+        fps: u8,
+        playing: bool,
+        looping: bool,
+        txt_atlas: Option<TextureAtlas>,
+        sprite: Handle<Image>,
+    ) -> Self {
         Self {
+            txt_atlas,
+            sprite,
             first_sprite_index: first,
             last_sprite_index: last,
             fps,
@@ -59,6 +72,11 @@ impl AnimationConfig {
             looping: looping,
             playing: playing,
         }
+    }
+
+    pub fn update_sprite(&mut self, txt_atlas: Option<TextureAtlas>, sprite: Handle<Image>) {
+        self.txt_atlas = txt_atlas;
+        self.sprite = sprite;
     }
 
     fn timer_from_fps(fps: u8) -> Timer {
@@ -107,6 +125,22 @@ fn execute_animations(
 
         // If it has been displayed for the user-defined amount of time (fps)...
         if config.frame_timer.just_finished() {
+            let mut dirty = false;
+            match (&sprite.texture_atlas, &config.txt_atlas) {
+                (Some(a), Some(b)) => {
+                    if a.layout != b.layout {
+                        dirty = true;
+                    }
+                }
+                _ => (),
+            }
+            if config.sprite != sprite.image {
+                dirty = true;
+            }
+            if dirty {
+                sprite.image = config.sprite.clone();
+                sprite.texture_atlas = config.txt_atlas.clone();
+            }
             if let Some(atlas) = &mut sprite.texture_atlas {
                 if !config.playing {
                     atlas.index = config.first_sprite_index;

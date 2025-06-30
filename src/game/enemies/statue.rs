@@ -15,13 +15,16 @@ use bevy_tnua::{
 use bevy_tnua_avian2d::TnuaAvian2dSensorShape;
 
 use crate::{
-    asset_tracking::LoadResource, game::{
+    AgedSystems, AppSystems, PausableSystems,
+    asset_tracking::LoadResource,
+    game::{
         age::{Dead, Timed},
         animate::{AnimationConfig, Directional},
         health::Health,
         player::Player,
-        ysort::{YSort, ENTITY_LAYER},
-    }, screens::Screen, AgedSystems, AppSystems, PausableSystems
+        ysort::{ENTITY_LAYER, YSort},
+    },
+    screens::Screen,
 };
 
 pub(super) fn plugin(app: &mut App) {
@@ -110,14 +113,15 @@ fn init_statue(
             continue;
         };
         transform.translation.z = 2.0;
+        let atlas = TextureAtlas {
+            layout: assets.atlas_walk.clone(),
+            index: 0,
+        };
         command.insert((
             Timed::default(),
             Sprite {
                 image: assets.sprite_walk.clone(),
-                texture_atlas: Some(TextureAtlas {
-                    layout: assets.atlas_walk.clone(),
-                    index: 0,
-                }),
+                texture_atlas: Some(atlas.clone()),
                 custom_size: Some(Vec2::new(100.0, 70.0)),
                 ..Default::default()
             },
@@ -129,7 +133,7 @@ fn init_statue(
             TnuaAvian2dSensorShape(Collider::rectangle(31.0, 0.0)),
             LockedAxes::ROTATION_LOCKED,
             Name::new("Statue"),
-            AnimationConfig::new(0, 3, 6, true, true),
+            AnimationConfig::new(0, 3, 6, true, true, Some(atlas), assets.sprite_walk.clone()),
             Directional {
                 flipdir: true,
                 ..Default::default()
@@ -245,21 +249,25 @@ fn animate_statue(
         statue.dirty = false;
         match statue.state {
             State::Roaming | State::Aggro => {
-                sprite.image = assets.sprite_walk.clone();
-                sprite.texture_atlas = Some(TextureAtlas {
-                    layout: assets.atlas_walk.clone(),
-                    index: 0,
-                });
+                animconf.update_sprite(
+                    Some(TextureAtlas {
+                        layout: assets.atlas_walk.clone(),
+                        index: 0,
+                    }),
+                    assets.sprite_walk.clone(),
+                );
                 animconf.set_frames(0, 4);
                 animconf.set_looping(true);
                 animconf.play();
             }
             State::Attacking => {
-                sprite.image = assets.sprite_attack.clone();
-                sprite.texture_atlas = Some(TextureAtlas {
-                    layout: assets.atlas_attack.clone(),
-                    index: 0,
-                });
+                animconf.update_sprite(
+                    Some(TextureAtlas {
+                        layout: assets.atlas_attack.clone(),
+                        index: 0,
+                    }),
+                    assets.sprite_attack.clone(),
+                );
                 animconf.set_frames(0, 3);
                 animconf.set_looping(false);
                 animconf.play();

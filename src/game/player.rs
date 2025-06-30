@@ -157,11 +157,19 @@ fn init_player(
             Name::new("Player"),
             Sprite {
                 image: playerassets.sprite_idle.clone(),
-                texture_atlas: Some(texture_atlas),
+                texture_atlas: Some(texture_atlas.clone()),
                 custom_size: Some(Vec2::new(100.0, 70.0)),
                 ..Default::default()
             },
-            AnimationConfig::new(0, 2, 8, true, true),
+            AnimationConfig::new(
+                0,
+                2,
+                8,
+                true,
+                true,
+                Some(texture_atlas),
+                playerassets.sprite_idle.clone(),
+            ),
             Directional {
                 flipdir: true,
                 ..Default::default()
@@ -174,11 +182,19 @@ fn init_player(
             Book,
             Sprite {
                 image: playerassets.sprite_book.clone(),
-                texture_atlas: Some(texture_atlas_book),
+                texture_atlas: Some(texture_atlas_book.clone()),
                 custom_size: Some(Vec2::new(50.0, 50.0)),
                 ..Default::default()
             },
-            AnimationConfig::new(0, 7, 8, true, true),
+            AnimationConfig::new(
+                0,
+                7,
+                8,
+                true,
+                true,
+                Some(texture_atlas_book),
+                playerassets.sprite_book.clone(),
+            ),
         ))
         .with_child((
             //Camera
@@ -292,48 +308,59 @@ fn handle_animating(
         bevy_tnua::TnuaAnimatingStateDirective::Maintain { state } => {}
         bevy_tnua::TnuaAnimatingStateDirective::Alter { old_state, state } => match state {
             AnimationState::Standing => {
-                sprite.image = playerassets.sprite_idle.clone();
-                sprite.texture_atlas = Some(TextureAtlas {
-                    layout: playerassets.atlas_idle.clone(),
-                    index: 0,
-                });
+                animation.update_sprite(
+                    Some(TextureAtlas {
+                        layout: playerassets.atlas_idle.clone(),
+                        index: 0,
+                    }),
+                    playerassets.sprite_idle.clone(),
+                );
                 animation.set_frames(0, 2);
                 animation.play();
             }
             AnimationState::Running(_) => {
-                sprite.image = playerassets.sprite_run.clone();
-                sprite.texture_atlas = Some(TextureAtlas {
-                    layout: playerassets.atlas_run.clone(),
-                    index: 1,
-                });
+                animation.update_sprite(
+                    Some(TextureAtlas {
+                        layout: playerassets.atlas_run.clone(),
+                        index: 1,
+                    }),
+                    playerassets.sprite_run.clone(),
+                );
                 animation.set_frames(1, 5);
                 animation.play();
             }
             AnimationState::Jumping => {
-                sprite.image = playerassets.sprite_jump.clone();
-                sprite.texture_atlas = Some(TextureAtlas {
-                    layout: playerassets.atlas_jump.clone(),
-                    index: 0,
-                });
+                animation.update_sprite(
+                    Some(TextureAtlas {
+                        layout: playerassets.atlas_jump.clone(),
+                        index: 0,
+                    }),
+                    playerassets.sprite_jump.clone(),
+                );
                 animation.set_frames(0, 5);
                 animation.play();
             }
             AnimationState::Falling => {
-                sprite.image = playerassets.sprite_jump.clone();
-                sprite.texture_atlas = Some(TextureAtlas {
-                    layout: playerassets.atlas_jump.clone(),
-                    index: 4,
-                });
-                animation.stop();
+                animation.update_sprite(
+                    Some(TextureAtlas {
+                        layout: playerassets.atlas_jump.clone(),
+                        index: 4,
+                    }),
+                    playerassets.sprite_jump.clone(),
+                );
+                animation.set_frames(4, 4);
+                animation.play();
             }
             AnimationState::Dashing => {
-                sprite.image = playerassets.sprite_idle.clone();
-                sprite.texture_atlas = Some(TextureAtlas {
-                    layout: playerassets.atlas_idle.clone(),
-                    index: 0,
-                });
+                animation.update_sprite(
+                    Some(TextureAtlas {
+                        layout: playerassets.atlas_idle.clone(),
+                        index: 0,
+                    }),
+                    playerassets.sprite_idle.clone(),
+                );
                 animation.set_frames(0, 0);
-                animation.stop();
+                animation.play();
             }
         },
     }

@@ -144,18 +144,19 @@ fn init_ghost(
             continue;
         };
         transform.translation.z = 2.0;
+        let atlas = TextureAtlas {
+            layout: assets.atlas_walk.clone(),
+            index: 0,
+        };
         command.insert((
             Timed::default(),
             Sprite {
                 image: assets.sprite_walk.clone(),
-                texture_atlas: Some(TextureAtlas {
-                    layout: assets.atlas_walk.clone(),
-                    index: 0,
-                }),
+                texture_atlas: Some(atlas.clone()),
                 custom_size: Some(Vec2::new(100.0, 70.0)),
                 ..Default::default()
             },
-            AnimationConfig::new(0, 2, 4, true, true),
+            AnimationConfig::new(0, 2, 4, true, true, Some(atlas), assets.sprite_walk.clone()),
             Directional {
                 flipdir: true,
                 ..Default::default()
@@ -292,19 +293,28 @@ fn animate_ghost(
                     if let Ok(player) = player_query.single() {
                         ghost.attackcooldown.reset();
                         let size = Vec2::splat(75.0);
+                        let atlas = TextureAtlas {
+                            layout: assets.atlas_proj.clone(),
+                            index: 0,
+                        };
                         commands.spawn((
                             Transform::from_translation(global.translation()),
                             Timed::default(),
                             Sprite {
                                 image: assets.sprite_proj.clone(),
-                                texture_atlas: Some(TextureAtlas {
-                                    layout: assets.atlas_proj.clone(),
-                                    index: 0,
-                                }),
+                                texture_atlas: Some(atlas.clone()),
                                 custom_size: Some(size),
                                 ..Default::default()
                             },
-                            AnimationConfig::new(0, 8, 4, true, true),
+                            AnimationConfig::new(
+                                0,
+                                8,
+                                4,
+                                true,
+                                true,
+                                Some(atlas),
+                                assets.sprite_proj.clone(),
+                            ),
                             Directional {
                                 flipdir: true,
                                 ..Default::default()
@@ -327,27 +337,26 @@ fn animate_ghost(
         }
         ghost.dirty = false;
         match ghost.state {
-            State::Roaming => sprite.color = Color::srgb(1.0, 0.0, 0.0),
-            State::Aggro => sprite.color = Color::srgb(0.0, 1.0, 0.0),
-            State::Attacking => sprite.color = Color::srgb(0.0, 0.0, 1.0),
-        }
-        match ghost.state {
             State::Roaming | State::Aggro => {
-                sprite.image = assets.sprite_walk.clone();
-                sprite.texture_atlas = Some(TextureAtlas {
-                    layout: assets.atlas_walk.clone(),
-                    index: 0,
-                });
+                animconf.update_sprite(
+                    Some(TextureAtlas {
+                        layout: assets.atlas_walk.clone(),
+                        index: 0,
+                    }),
+                    assets.sprite_walk.clone(),
+                );
                 animconf.set_frames(0, 2);
                 animconf.set_looping(true);
                 animconf.play();
             }
             State::Attacking => {
-                sprite.image = assets.sprite_attack.clone();
-                sprite.texture_atlas = Some(TextureAtlas {
-                    layout: assets.atlas_attack.clone(),
-                    index: 0,
-                });
+                animconf.update_sprite(
+                    Some(TextureAtlas {
+                        layout: assets.atlas_attack.clone(),
+                        index: 0,
+                    }),
+                    assets.sprite_attack.clone(),
+                );
                 animconf.set_frames(0, 2);
                 animconf.set_looping(true);
                 animconf.play();
