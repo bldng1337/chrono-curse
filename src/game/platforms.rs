@@ -193,6 +193,7 @@ fn platform_setup(
             };
             let child = commands
                 .spawn((
+                    StateScoped(Screen::Gameplay),
                     Transform::from_xyz(xoffset as f32, 0.0, 0.0),
                     Sprite {
                         image: sprite.sprite.clone(),

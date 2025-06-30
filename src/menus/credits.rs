@@ -18,7 +18,7 @@ pub(super) fn plugin(app: &mut App) {
     app.add_systems(OnEnter(Menu::Credits), start_credits_music);
 }
 
-fn spawn_credits_menu(mut commands: Commands) {
+fn spawn_credits_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn((
         widget::ui_root("Credits Menu"),
         GlobalZIndex(2),
@@ -28,7 +28,7 @@ fn spawn_credits_menu(mut commands: Commands) {
             created_by(),
             widget::header("Assets"),
             assets(),
-            widget::button("Back", go_back_on_click),
+            widget::button("Back", go_back_on_click,&asset_server),
         ],
     ));
 }

@@ -1,8 +1,11 @@
 use bevy::prelude::*;
 
-mod ghost;
+pub(crate) mod ghost;
 mod knight;
 mod statue;
+
+#[derive(Clone, Default, Component)]
+pub struct Enemy;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((statue::plugin, knight::plugin, ghost::plugin));

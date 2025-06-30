@@ -17,6 +17,7 @@ pub(super) fn plugin(app: &mut App) {
 fn spawn_loading_screen(mut commands: Commands) {
     commands.spawn((
         widget::ui_root("Loading Screen"),
+        BackgroundColor(Color::BLACK),
         StateScoped(Screen::WorldGen),
         children![widget::label("Generating World...")],
     ));

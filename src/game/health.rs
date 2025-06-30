@@ -17,6 +17,7 @@ pub(super) fn plugin(app: &mut App) {
 #[derive(Component)]
 pub struct Health {
     pub(crate) health: f32,
+    max_health: f32,
     hurt_time: Timer,
 }
 
@@ -25,7 +26,12 @@ impl Health {
         Self {
             health: health,
             hurt_time: Timer::new(Duration::from_secs_f32(0.5), TimerMode::Once),
+            max_health: health,
         }
+    }
+
+    pub fn get_percent(&self) -> f32 {
+        self.health / self.max_health
     }
 
     pub fn damage(&mut self, damage: f32) {

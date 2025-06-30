@@ -1,7 +1,10 @@
-use std::collections::VecDeque;
+use std::{collections::VecDeque, f64::INFINITY};
 
 use avian2d::prelude::{ColliderDisabled, RigidBodyDisabled};
-use bevy::{math::VectorSpace, prelude::*};
+use bevy::{
+    math::{VectorSpace, f64},
+    prelude::*,
+};
 use bevy_egui::egui::lerp;
 
 use crate::{
@@ -54,6 +57,12 @@ pub(super) fn plugin(app: &mut App) {
     );
 }
 
+pub enum Age {
+    Young,
+    Old,
+    Ancient,
+}
+
 #[derive(Component)]
 pub struct Aged {
     time: f64,
@@ -61,6 +70,13 @@ pub struct Aged {
     record: Timer,
 }
 impl Aged {
+    pub fn to_age(&self) -> Age {
+        match self.time {
+            0.0..33.0 => Age::Ancient,
+            33.3..66.6 => Age::Old,
+            _ => Age::Young,
+        }
+    }
     pub fn try_set_turnback(&mut self, value: bool) {
         match (self.time, value) {
             (0.1.., true) => self.turnback = true,
@@ -196,7 +212,7 @@ fn time_reverse(
     let Ok(mut aged) = aged_query.single_mut() else {
         return;
     };
-    aged.time -= time.delta_secs_f64();
+    aged.time -= time.delta_secs_f64() * 2.0;
     if aged.time <= 0.0 {
         aged.time = 0.0;
         aged.turnback = false;
@@ -298,10 +314,11 @@ fn reverse_sprite(mut query: Query<(&Timed, &mut Sprite)>) {
 
 fn respawn(mut query: RemovedComponents<Dead>, mut command: Commands) {
     query.read().for_each(|entity| {
-        command
-            .entity(entity)
-            .remove::<(RigidBodyDisabled, ColliderDisabled)>()
-            .insert(Visibility::Inherited);
+        if let Ok(mut entity) = command.get_entity(entity) {
+            entity
+                .remove::<(RigidBodyDisabled, ColliderDisabled)>()
+                .insert(Visibility::Visible);
+        }
     });
 }
 
@@ -377,7 +394,7 @@ fn start_record(
     for (mut timed, entity) in query_dead.iter_mut() {
         timed.currtime += elapsed / 1.5;
         if let Some(Snapshot::Die { time }) = timed.history.back() {
-            if timed.currtime - 20.0 > *time {
+            if timed.currtime - 60.0 > *time {
                 command.entity(entity).despawn();
             }
         }

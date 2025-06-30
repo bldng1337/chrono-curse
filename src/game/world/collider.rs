@@ -5,7 +5,10 @@ use bevy_ecs_ldtk::prelude::*;
 
 use avian2d::prelude::*;
 
-use crate::{game::worldgen::LevelAssets, screens::Screen};
+use crate::{
+    game::{age::Dead, enemies::Enemy, player::Player, worldgen::LevelAssets},
+    screens::Screen,
+};
 
 #[derive(Copy, Clone, Eq, PartialEq, Debug, Default)]
 enum Material {
@@ -19,6 +22,13 @@ enum Material {
 pub struct Wall {
     mat: Material,
 }
+
+#[derive(Clone, Default, Component)]
+pub struct Spikes;
+
+#[derive(Clone, Default, Component)]
+pub struct WallCollider;
+
 impl LdtkIntCell for Wall {
     fn bundle_int_cell(int_grid_cell: IntGridCell, _layer_instance: &LayerInstance) -> Self {
         Self {
@@ -70,6 +80,7 @@ pub fn spawn_wall_collision(
         half_height: bool,
         left_half: bool,
         right_half: bool,
+        spikes: bool,
     }
 
     /// A simple rectangle type representing a wall of any size
@@ -78,6 +89,7 @@ pub fn spawn_wall_collision(
         right: f32,
         top: f32,
         bottom: f32,
+        spikes: bool,
     }
 
     // Consider where the walls are
@@ -128,67 +140,105 @@ pub fn spawn_wall_collision(
 
                 for y in 0..height {
                     let mut row_plates: Vec<Plate> = Vec::new();
-                    let mut plate_start = None;
-                    let mut half_size = None;
-                    let mut lastmat = None;
-                    let mut startmat = None;
-
+                    let mut plate = None;
                     // + 1 to the width so the algorithm "terminates" plates that touch the right edge
-                    for x in 0..width + 1 {
+                    for mut x in 0..width + 1 {
                         match (
-                            plate_start,
-                            half_size,
+                            &mut plate,
                             level_walls.get(&GridCoords { x, y }),
                             level_walls.contains_key(&GridCoords { x, y: y + 1 }),
                         ) {
+                            (None, Some(mat), isnothalf) => {
+                                plate = Some(Plate {
+                                    left: x,
+                                    right: x,
+                                    half_height: !isnothalf,
+                                    left_half: mat == &Material::Wood,
+                                    right_half: mat == &Material::Wood,
+                                    spikes: mat == &Material::Spikes,
+                                });
+                            }
+                            (
+                                Some(Plate {
+                                    left: _,
+                                    right,
+                                    half_height,
+                                    left_half: _,
+                                    right_half,
+                                    spikes,
+                                }),
+                                Some(mat),
+                                isnothalf,
+                            ) if isnothalf != *half_height
+                                && (*spikes == (mat == &Material::Spikes)) =>
+                            {
+                                *right = x;
+                                *right_half = mat == &Material::Wood;
+                            }
+                            (Some(cplate), Some(mat), isnothalf) => {
+                                row_plates.push(cplate.clone());
+                                plate = Some(Plate {
+                                    left: x,
+                                    right: x,
+                                    half_height: !isnothalf,
+                                    left_half: mat == &Material::Wood,
+                                    right_half: mat == &Material::Wood,
+                                    spikes: mat == &Material::Spikes,
+                                });
+                            }
+                            (Some(cplate), None, _) => {
+                                row_plates.push(cplate.clone());
+                                plate = None;
+                            }
+
                             //Start a Rect
-                            (None, None, Some(currmat), above) => {
-                                plate_start = Some(x);
-                                lastmat = Some(currmat);
-                                startmat = Some(currmat);
-                                half_size = Some(!above);
-                            }
-                            (Some(_), Some(true), Some(currmat), false)
-                            | (Some(_), Some(false), Some(currmat), true) => {
-                                lastmat = Some(currmat);
-                            }
-                            (Some(s), Some(false), Some(currmat), false) => {
-                                row_plates.push(Plate {
-                                    left: s,
-                                    right: x - 1,
-                                    half_height: false,
-                                    left_half: startmat == Some(&Material::Wood),
-                                    right_half: startmat == Some(&Material::Wood),
-                                });
-                                plate_start = Some(x);
-                                lastmat = Some(currmat);
-                                startmat = Some(currmat);
-                                half_size = Some(true);
-                            }
-                            (Some(s), Some(true), Some(currmat), true) => {
-                                row_plates.push(Plate {
-                                    left: s,
-                                    right: x - 1,
-                                    half_height: true,
-                                    left_half: startmat == Some(&Material::Wood),
-                                    right_half: lastmat == Some(&Material::Wood),
-                                });
-                                plate_start = Some(x);
-                                lastmat = Some(currmat);
-                                startmat = Some(currmat);
-                                half_size = Some(false);
-                            }
-                            (Some(s), Some(halfsize), None, _) => {
-                                row_plates.push(Plate {
-                                    left: s,
-                                    right: x - 1,
-                                    half_height: halfsize,
-                                    left_half: startmat == Some(&Material::Wood),
-                                    right_half: lastmat == Some(&Material::Wood),
-                                });
-                                plate_start = None;
-                                half_size = None;
-                            }
+                            // (None, None, Some(currmat), above) => {
+                            //     plate_start = Some(x);
+                            //     lastmat = Some(currmat);
+                            //     startmat = Some(currmat);
+                            //     half_size = Some(!above);
+                            // }
+                            // (Some(_), Some(true), Some(currmat), false)
+                            // | (Some(_), Some(false), Some(currmat), true) => {
+                            //     lastmat = Some(currmat);
+                            // }
+                            // (Some(s), Some(false), Some(currmat), false) => {
+                            //     row_plates.push(Plate {
+                            //         left: s,
+                            //         right: x - 1,
+                            //         half_height: false,
+                            //         left_half: startmat == Some(&Material::Wood),
+                            //         right_half: startmat == Some(&Material::Wood),
+                            //     });
+                            //     plate_start = Some(x);
+                            //     lastmat = Some(currmat);
+                            //     startmat = Some(currmat);
+                            //     half_size = Some(true);
+                            // }
+                            // (Some(s), Some(true), Some(currmat), true) => {
+                            //     row_plates.push(Plate {
+                            //         left: s,
+                            //         right: x - 1,
+                            //         half_height: true,
+                            //         left_half: startmat == Some(&Material::Wood),
+                            //         right_half: lastmat == Some(&Material::Wood),
+                            //     });
+                            //     plate_start = Some(x);
+                            //     lastmat = Some(currmat);
+                            //     startmat = Some(currmat);
+                            //     half_size = Some(false);
+                            // }
+                            // (Some(s), Some(halfsize), None, _) => {
+                            //     row_plates.push(Plate {
+                            //         left: s,
+                            //         right: x - 1,
+                            //         half_height: halfsize,
+                            //         left_half: startmat == Some(&Material::Wood),
+                            //         right_half: lastmat == Some(&Material::Wood),
+                            //     });
+                            //     plate_start = None;
+                            //     half_size = None;
+                            // }
                             _ => (),
                         }
                     }
@@ -234,6 +284,7 @@ pub fn spawn_wall_collision(
                                 } else {
                                     plate.right as f32
                                 },
+                                spikes: plate.spikes,
                             });
                     }
                     prev_row = current_row;
@@ -245,8 +296,8 @@ pub fn spawn_wall_collision(
                     // 1. Adjusts the transforms to be relative to the level for free
                     // 2. the colliders will be despawned automatically when levels unload
                     for wall_rect in wall_rects {
-                        level
-                            .spawn_empty()
+                        let mut empty = level.spawn_empty();
+                        let a = empty
                             .insert(Collider::rectangle(
                                 (wall_rect.right as f32 - wall_rect.left as f32 + 1.)
                                     * grid_size as f32,
@@ -262,7 +313,23 @@ pub fn spawn_wall_collision(
                                     / 2.,
                                 0.,
                             ))
-                            .insert(GlobalTransform::default());
+                            .insert(GlobalTransform::default())
+                            .insert(WallCollider);
+                        if wall_rect.spikes {
+                            a.insert((Spikes, Sensor, CollisionEventsEnabled)).observe(
+                                |trigger: Trigger<OnCollisionStart>,
+                                 player_query: Query<&Player>,
+                                 enemy_query: Query<&Enemy>,
+                                 mut commands: Commands| {
+                                    let other_entity = trigger.collider;
+                                    if player_query.contains(other_entity)
+                                        || enemy_query.contains(other_entity)
+                                    {
+                                        commands.entity(other_entity).insert(Dead);
+                                    }
+                                },
+                            );
+                        }
                     }
                 });
             }

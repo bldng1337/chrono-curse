@@ -4,6 +4,7 @@ use std::borrow::Cow;
 
 use bevy::{
     ecs::{spawn::SpawnWith, system::IntoObserverSystem},
+    image::{ImageLoaderSettings, ImageSampler},
     prelude::*,
     ui::Val::*,
 };
@@ -50,7 +51,11 @@ pub fn label(text: impl Into<String>) -> impl Bundle {
 }
 
 /// A large rounded button with text and an action defined as an [`Observer`].
-pub fn button<E, B, M, I>(text: impl Into<String>, action: I) -> impl Bundle
+pub fn button<E, B, M, I>(
+    text: impl Into<String>,
+    action: I,
+    asset_server: &Res<AssetServer>,
+) -> impl Bundle
 where
     E: Event,
     B: Bundle,
@@ -62,18 +67,23 @@ where
         (
             Node {
                 width: Px(380.0),
-                height: Px(80.0),
+                height: Px(120.0),
                 align_items: AlignItems::Center,
                 justify_content: JustifyContent::Center,
                 ..default()
             },
             BorderRadius::MAX,
         ),
+        asset_server,
     )
 }
 
 /// A small square button with text and an action defined as an [`Observer`].
-pub fn button_small<E, B, M, I>(text: impl Into<String>, action: I) -> impl Bundle
+pub fn button_small<E, B, M, I>(
+    text: impl Into<String>,
+    action: I,
+    asset_server: &Res<AssetServer>,
+) -> impl Bundle
 where
     E: Event,
     B: Bundle,
@@ -89,6 +99,7 @@ where
             justify_content: JustifyContent::Center,
             ..default()
         },
+        asset_server,
     )
 }
 
@@ -97,6 +108,7 @@ fn button_base<E, B, M, I>(
     text: impl Into<String>,
     action: I,
     button_bundle: impl Bundle,
+    asset_server: &Res<AssetServer>,
 ) -> impl Bundle
 where
     E: Event,
@@ -105,20 +117,35 @@ where
 {
     let text = text.into();
     let action = IntoObserverSystem::into_system(action);
+
+    let asset = asset_server.load_with_settings(
+        // This should be an embedded asset for instant loading, but that is
+        // currently [broken on Windows Wasm builds](https://github.com/bevyengine/bevy/issues/14246).
+        "UIElements/Button_Textur.png",
+        |settings: &mut ImageLoaderSettings| {
+            // Make an exception for the splash image in case
+            // `ImagePlugin::default_nearest()` is used for pixel art.
+            settings.sampler = ImageSampler::nearest();
+        },
+    );
     (
         Name::new("Button"),
-        Node::default(),
+        Node {
+            height: Val::Px(600.0),
+            ..Default::default()
+        },
         Children::spawn(SpawnWith(|parent: &mut ChildSpawner| {
             parent
                 .spawn((
                     Name::new("Button Inner"),
                     Button,
-                    BackgroundColor(BUTTON_BACKGROUND),
+                    // BackgroundColor(BUTTON_BACKGROUND),
                     InteractionPalette {
                         none: BUTTON_BACKGROUND,
                         hovered: BUTTON_HOVERED_BACKGROUND,
                         pressed: BUTTON_PRESSED_BACKGROUND,
                     },
+                    ImageNode::new(asset),
                     children![(
                         Name::new("Button Text"),
                         Text(text),

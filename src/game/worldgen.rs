@@ -12,6 +12,7 @@ pub(super) fn plugin(app: &mut App) {
     app.load_resource::<LevelAssets>();
     app.init_resource::<WorldGen>();
     app.add_systems(OnEnter(Screen::WorldGen), init_world_gen);
+    app.add_systems(OnEnter(Screen::Gameplay), cleanup);
     app.add_systems(
         Update,
         (world_gen, tick_timer)
@@ -145,6 +146,12 @@ impl From<&Level> for RoomRef {
     }
 }
 
+fn cleanup(rooms: Query<(&Room, Entity)>, mut commands: Commands) {
+    for (room, entity) in rooms.iter() {
+        commands.entity(entity).remove::<Room>();
+    }
+}
+
 fn world_gen(
     rooms: Query<&Room>,
     mut commands: Commands,
@@ -183,7 +190,9 @@ fn world_gen(
                     doors.push(opendoor);
                 }
                 let translation = translation.clone();
-                commands.spawn(roomref.spawn(translation, &level_assets.worlddata));
+                commands
+                    .spawn(roomref.spawn(translation, &level_assets.worlddata))
+                    .insert(StateScoped(Screen::Gameplay));
                 break 'room;
             }
         }
@@ -218,10 +227,12 @@ fn init_world_gen(
     // let mut rng = thread_rng();
     // rooms.shuffle(&mut rng);
     let first_room = &rooms[0];
-    commands.spawn(first_room.spawn(Vec2::ZERO, ldtk));
+    commands
+        .spawn(first_room.spawn(Vec2::ZERO, ldtk))
+        .insert(StateScoped(Screen::Gameplay));
     commands.insert_resource(WorldGen {
         doors: first_room.doors.clone(),
         rooms,
-        time: Timer::from_seconds(1.0, TimerMode::Once),
+        time: Timer::from_seconds(0.3, TimerMode::Once),
     });
 }

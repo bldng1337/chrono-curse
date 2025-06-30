@@ -20,6 +20,7 @@ use crate::{
     game::{
         age::{Dead, Timed},
         animate::{AnimationConfig, Directional},
+        enemies::Enemy,
         health::Health,
         player::Player,
         ysort::{ENTITY_LAYER, YSort},
@@ -118,7 +119,9 @@ fn init_statue(
             index: 0,
         };
         command.insert((
+            Health::new(140.0),
             Timed::default(),
+            Enemy,
             Sprite {
                 image: assets.sprite_walk.clone(),
                 texture_atlas: Some(atlas.clone()),

@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-mod collider;
+pub mod collider;
 mod cosmetic;
 
 pub(super) fn plugin(app: &mut App) {

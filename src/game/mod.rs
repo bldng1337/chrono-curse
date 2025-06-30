@@ -1,13 +1,14 @@
 use bevy::prelude::*;
 
-mod age;
+pub(crate) mod age;
 mod animate;
 mod enemies;
 mod health;
 mod inputs;
 mod platforms;
-mod player;
+pub(crate) mod player;
 mod projectile;
+mod ui;
 mod world;
 pub mod worldgen;
 mod ysort;
@@ -25,5 +26,6 @@ pub(super) fn plugin(app: &mut App) {
         ysort::plugin,
         age::plugin,
         projectile::plugin,
+        ui::plugin,
     ));
 }

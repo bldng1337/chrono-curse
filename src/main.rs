@@ -23,6 +23,8 @@ use bevy_light_2d::prelude::Light2dPlugin;
 use bevy_tnua::prelude::TnuaControllerPlugin;
 use bevy_tnua_avian2d::TnuaAvian2dPlugin;
 
+use crate::screens::Screen;
+
 fn main() -> AppExit {
     App::new().add_plugins(AppPlugin).run()
 }
@@ -95,6 +97,7 @@ impl Plugin for AppPlugin {
 
         // Spawn the main camera.
         app.add_systems(Startup, spawn_camera);
+        app.add_systems(OnExit(Screen::Gameplay), spawn_camera);
     }
 }
 

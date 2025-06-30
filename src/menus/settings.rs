@@ -20,20 +20,20 @@ pub(super) fn plugin(app: &mut App) {
     );
 }
 
-fn spawn_settings_menu(mut commands: Commands) {
+fn spawn_settings_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn((
         widget::ui_root("Settings Menu"),
         GlobalZIndex(2),
         StateScoped(Menu::Settings),
         children![
             widget::header("Settings"),
-            settings_grid(),
-            widget::button("Back", go_back_on_click),
+            settings_grid(&asset_server),
+            widget::button("Back", go_back_on_click, &asset_server),
         ],
     ));
 }
 
-fn settings_grid() -> impl Bundle {
+fn settings_grid(asset_server: &Res<AssetServer>) -> impl Bundle {
     (
         Name::new("Settings Grid"),
         Node {
@@ -51,12 +51,12 @@ fn settings_grid() -> impl Bundle {
                     ..default()
                 }
             ),
-            global_volume_widget(),
+            global_volume_widget(asset_server),
         ],
     )
 }
 
-fn global_volume_widget() -> impl Bundle {
+fn global_volume_widget(asset_server: &Res<AssetServer>) -> impl Bundle {
     (
         Name::new("Global Volume Widget"),
         Node {
@@ -64,7 +64,7 @@ fn global_volume_widget() -> impl Bundle {
             ..default()
         },
         children![
-            widget::button_small("-", lower_global_volume),
+            widget::button_small("-", lower_global_volume, asset_server),
             (
                 Name::new("Current Volume"),
                 Node {
@@ -74,7 +74,7 @@ fn global_volume_widget() -> impl Bundle {
                 },
                 children![(widget::label(""), GlobalVolumeLabel)],
             ),
-            widget::button_small("+", raise_global_volume),
+            widget::button_small("+", raise_global_volume, asset_server),
         ],
     )
 }

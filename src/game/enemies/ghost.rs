@@ -24,9 +24,10 @@ use crate::{
     game::{
         age::{Dead, Timed},
         animate::{AnimationConfig, Directional},
+        enemies::Enemy,
         health::Health,
         player::Player,
-        projectile::Projectile,
+        projectile::{Projectile, ProjectileTarget},
         ysort::{ENTITY_LAYER, YSort},
     },
     screens::Screen,
@@ -103,6 +104,14 @@ pub struct GhostAssets {
     #[dependency]
     pub sprite_proj: Handle<Image>,
     pub atlas_proj: Handle<TextureAtlasLayout>,
+
+    #[dependency]
+    pub sprite_proj_fire: Handle<Image>,
+    pub atlas_proj_fire: Handle<TextureAtlasLayout>,
+
+    #[dependency]
+    pub sprite_proj_electro: Handle<Image>,
+    pub atlas_proj_electro: Handle<TextureAtlasLayout>,
 }
 
 impl FromWorld for GhostAssets {
@@ -117,14 +126,24 @@ impl FromWorld for GhostAssets {
         let layout = TextureAtlasLayout::from_grid(UVec2::new(224, 224), 9, 1, None, None);
         let atlas_proj = texture_atlas_layouts.add(layout);
 
+        let layout = TextureAtlasLayout::from_grid(UVec2::new(352, 352), 6, 1, None, None);
+        let atlas_proj_fire = texture_atlas_layouts.add(layout);
+
+        let layout = TextureAtlasLayout::from_grid(UVec2::new(256, 256), 8, 1, None, None);
+        let atlas_proj_electro = texture_atlas_layouts.add(layout);
+
         let assets = world.resource::<AssetServer>();
         Self {
             sprite_walk: assets.load("sprites/entities/enemies/Ghost/walk.png"),
             sprite_attack: assets.load("sprites/entities/enemies/Ghost/attack.png"),
             sprite_proj: assets.load("sprites/entities/enemies/Ghost/projectile.png"),
+            sprite_proj_fire: assets.load("sprites/entities/player/magic/fire.png"),
+            sprite_proj_electro: assets.load("sprites/entities/player/magic/thunder.png"),
             atlas_walk,
             atlas_attack,
             atlas_proj,
+            atlas_proj_fire,
+            atlas_proj_electro,
         }
     }
 }
@@ -149,7 +168,9 @@ fn init_ghost(
             index: 0,
         };
         command.insert((
+            Health::new(100.0),
             Timed::default(),
+            Enemy,
             Sprite {
                 image: assets.sprite_walk.clone(),
                 texture_atlas: Some(atlas.clone()),
@@ -298,6 +319,7 @@ fn animate_ghost(
                             index: 0,
                         };
                         commands.spawn((
+                            StateScoped(Screen::Gameplay),
                             Transform::from_translation(global.translation()),
                             Timed::default(),
                             Sprite {
@@ -322,8 +344,7 @@ fn animate_ghost(
                             Projectile {
                                 dir: ghost.shootdir,
                                 dmg: 15.0,
-                                owner: entity,
-                                target: Some(player),
+                                target: ProjectileTarget::Player,
                                 size: size,
                             },
                         ));

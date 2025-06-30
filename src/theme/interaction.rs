@@ -25,12 +25,12 @@ pub struct InteractionPalette {
 
 fn apply_interaction_palette(
     mut palette_query: Query<
-        (&Interaction, &InteractionPalette, &mut BackgroundColor),
+        (&Interaction, &InteractionPalette, &mut ImageNode),
         Changed<Interaction>,
     >,
 ) {
     for (interaction, palette, mut background) in &mut palette_query {
-        *background = match interaction {
+        background.color = match interaction {
             Interaction::None => palette.none,
             Interaction::Hovered => palette.hovered,
             Interaction::Pressed => palette.pressed,

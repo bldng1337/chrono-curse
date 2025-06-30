@@ -16,16 +16,16 @@ pub(super) fn plugin(app: &mut App) {
     );
 }
 
-fn spawn_pause_menu(mut commands: Commands) {
+fn spawn_pause_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn((
         widget::ui_root("Pause Menu"),
         GlobalZIndex(2),
         StateScoped(Menu::Pause),
         children![
             widget::header("Game paused"),
-            widget::button("Continue", close_menu),
-            widget::button("Settings", open_settings_menu),
-            widget::button("Quit to title", quit_to_title),
+            widget::button("Continue", close_menu,&asset_server),
+            widget::button("Settings", open_settings_menu,&asset_server),
+            widget::button("Quit to title", quit_to_title,&asset_server),
         ],
     ));
 }
