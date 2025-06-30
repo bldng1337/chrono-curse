@@ -8999,7 +8999,7 @@
 						0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
 						0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0,0,3,3,3,3,3,0,0,0,0,0,0,0,0,0,0,
 						0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-						1,1,1,1,1,3,3,3,1,1,1,1,1,1,1,3,3,3,1,1,1,1,1,1,1,1,1,3,3,3,1,1,1,1,1,
+						1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 						1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 						1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 						1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
@@ -9229,6 +9229,9 @@
 						{ "px": [128,384], "src": [256,0], "f": 0, "t": 4, "d": [81,212], "a": 1 },
 						{ "px": [192,384], "src": [256,0], "f": 0, "t": 4, "d": [81,213], "a": 1 },
 						{ "px": [256,384], "src": [320,0], "f": 0, "t": 5, "d": [81,214], "a": 1 },
+						{ "px": [320,384], "src": [256,0], "f": 0, "t": 4, "d": [81,215], "a": 1 },
+						{ "px": [384,384], "src": [256,0], "f": 0, "t": 4, "d": [81,216], "a": 1 },
+						{ "px": [448,384], "src": [256,0], "f": 0, "t": 4, "d": [81,217], "a": 1 },
 						{ "px": [512,384], "src": [320,0], "f": 0, "t": 5, "d": [81,218], "a": 1 },
 						{ "px": [576,384], "src": [320,0], "f": 0, "t": 5, "d": [81,219], "a": 1 },
 						{ "px": [640,384], "src": [256,0], "f": 0, "t": 4, "d": [81,220], "a": 1 },
@@ -9236,6 +9239,9 @@
 						{ "px": [768,384], "src": [256,0], "f": 0, "t": 4, "d": [81,222], "a": 1 },
 						{ "px": [832,384], "src": [320,0], "f": 0, "t": 5, "d": [81,223], "a": 1 },
 						{ "px": [896,384], "src": [256,0], "f": 0, "t": 4, "d": [81,224], "a": 1 },
+						{ "px": [960,384], "src": [320,0], "f": 0, "t": 5, "d": [81,225], "a": 1 },
+						{ "px": [1024,384], "src": [256,0], "f": 0, "t": 4, "d": [81,226], "a": 1 },
+						{ "px": [1088,384], "src": [256,0], "f": 0, "t": 4, "d": [81,227], "a": 1 },
 						{ "px": [1152,384], "src": [256,0], "f": 0, "t": 4, "d": [81,228], "a": 1 },
 						{ "px": [1216,384], "src": [256,0], "f": 0, "t": 4, "d": [81,229], "a": 1 },
 						{ "px": [1280,384], "src": [256,0], "f": 0, "t": 4, "d": [81,230], "a": 1 },
@@ -9245,20 +9251,14 @@
 						{ "px": [1536,384], "src": [320,0], "f": 0, "t": 5, "d": [81,234], "a": 1 },
 						{ "px": [1600,384], "src": [256,0], "f": 0, "t": 4, "d": [81,235], "a": 1 },
 						{ "px": [1664,384], "src": [320,0], "f": 0, "t": 5, "d": [81,236], "a": 1 },
+						{ "px": [1728,384], "src": [320,0], "f": 0, "t": 5, "d": [81,237], "a": 1 },
+						{ "px": [1792,384], "src": [320,0], "f": 0, "t": 5, "d": [81,238], "a": 1 },
+						{ "px": [1856,384], "src": [320,0], "f": 0, "t": 5, "d": [81,239], "a": 1 },
 						{ "px": [1920,384], "src": [256,0], "f": 0, "t": 4, "d": [81,240], "a": 1 },
 						{ "px": [1984,384], "src": [320,0], "f": 0, "t": 5, "d": [81,241], "a": 1 },
 						{ "px": [2048,384], "src": [320,0], "f": 0, "t": 5, "d": [81,242], "a": 1 },
 						{ "px": [2112,384], "src": [256,0], "f": 0, "t": 4, "d": [81,243], "a": 1 },
 						{ "px": [2176,384], "src": [320,0], "f": 0, "t": 5, "d": [81,244], "a": 1 },
-						{ "px": [320,384], "src": [256,0], "f": 0, "t": 4, "d": [146,215], "a": 1 },
-						{ "px": [384,384], "src": [256,0], "f": 0, "t": 4, "d": [146,216], "a": 1 },
-						{ "px": [448,384], "src": [320,0], "f": 0, "t": 5, "d": [146,217], "a": 1 },
-						{ "px": [960,384], "src": [320,0], "f": 0, "t": 5, "d": [146,225], "a": 1 },
-						{ "px": [1024,384], "src": [320,0], "f": 0, "t": 5, "d": [146,226], "a": 1 },
-						{ "px": [1088,384], "src": [320,0], "f": 0, "t": 5, "d": [146,227], "a": 1 },
-						{ "px": [1728,384], "src": [256,0], "f": 0, "t": 4, "d": [146,237], "a": 1 },
-						{ "px": [1792,384], "src": [256,0], "f": 0, "t": 4, "d": [146,238], "a": 1 },
-						{ "px": [1856,384], "src": [320,0], "f": 0, "t": 5, "d": [146,239], "a": 1 },
 						{ "px": [640,256], "src": [128,0], "f": 0, "t": 2, "d": [141,150], "a": 1 },
 						{ "px": [704,256], "src": [128,0], "f": 0, "t": 2, "d": [141,151], "a": 1 },
 						{ "px": [768,256], "src": [128,0], "f": 0, "t": 2, "d": [141,152], "a": 1 },
@@ -9266,16 +9266,7 @@
 						{ "px": [1344,256], "src": [128,0], "f": 0, "t": 2, "d": [141,161], "a": 1 },
 						{ "px": [1408,256], "src": [128,0], "f": 0, "t": 2, "d": [141,162], "a": 1 },
 						{ "px": [1472,256], "src": [128,0], "f": 0, "t": 2, "d": [141,163], "a": 1 },
-						{ "px": [1536,256], "src": [128,0], "f": 0, "t": 2, "d": [141,164], "a": 1 },
-						{ "px": [320,384], "src": [64,0], "f": 0, "t": 1, "d": [140,215], "a": 1 },
-						{ "px": [384,384], "src": [64,0], "f": 0, "t": 1, "d": [140,216], "a": 1 },
-						{ "px": [448,384], "src": [64,0], "f": 0, "t": 1, "d": [140,217], "a": 1 },
-						{ "px": [960,384], "src": [64,0], "f": 0, "t": 1, "d": [140,225], "a": 1 },
-						{ "px": [1024,384], "src": [64,0], "f": 0, "t": 1, "d": [140,226], "a": 1 },
-						{ "px": [1088,384], "src": [64,0], "f": 0, "t": 1, "d": [140,227], "a": 1 },
-						{ "px": [1728,384], "src": [64,0], "f": 0, "t": 1, "d": [140,237], "a": 1 },
-						{ "px": [1792,384], "src": [64,0], "f": 0, "t": 1, "d": [140,238], "a": 1 },
-						{ "px": [1856,384], "src": [64,0], "f": 0, "t": 1, "d": [140,239], "a": 1 }
+						{ "px": [1536,256], "src": [128,0], "f": 0, "t": 2, "d": [141,164], "a": 1 }
 					],
 					"seed": 436110,
 					"overrideTilesetUid": null,
@@ -11968,7 +11959,7 @@
 						0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,
 						0,0,0,0,0,0,0,3,3,0,0,0,0,0,3,3,0,0,0,0,3,3,0,0,0,0,3,3,0,0,0,0,0,0,0,
 						1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
-						1,1,1,1,1,1,1,3,3,1,1,1,1,1,3,3,1,1,1,1,3,3,1,1,1,1,3,3,1,1,1,1,1,1,1,
+						1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 						1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 						1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 						1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
@@ -12221,19 +12212,27 @@
 						{ "px": [256,384], "src": [320,0], "f": 0, "t": 5, "d": [81,214], "a": 1 },
 						{ "px": [320,384], "src": [256,0], "f": 0, "t": 4, "d": [81,215], "a": 1 },
 						{ "px": [384,384], "src": [256,0], "f": 0, "t": 4, "d": [81,216], "a": 1 },
+						{ "px": [448,384], "src": [256,0], "f": 0, "t": 4, "d": [81,217], "a": 1 },
+						{ "px": [512,384], "src": [320,0], "f": 0, "t": 5, "d": [81,218], "a": 1 },
 						{ "px": [576,384], "src": [320,0], "f": 0, "t": 5, "d": [81,219], "a": 1 },
 						{ "px": [640,384], "src": [256,0], "f": 0, "t": 4, "d": [81,220], "a": 1 },
 						{ "px": [704,384], "src": [320,0], "f": 0, "t": 5, "d": [81,221], "a": 1 },
 						{ "px": [768,384], "src": [256,0], "f": 0, "t": 4, "d": [81,222], "a": 1 },
 						{ "px": [832,384], "src": [320,0], "f": 0, "t": 5, "d": [81,223], "a": 1 },
+						{ "px": [896,384], "src": [256,0], "f": 0, "t": 4, "d": [81,224], "a": 1 },
+						{ "px": [960,384], "src": [320,0], "f": 0, "t": 5, "d": [81,225], "a": 1 },
 						{ "px": [1024,384], "src": [256,0], "f": 0, "t": 4, "d": [81,226], "a": 1 },
 						{ "px": [1088,384], "src": [256,0], "f": 0, "t": 4, "d": [81,227], "a": 1 },
 						{ "px": [1152,384], "src": [256,0], "f": 0, "t": 4, "d": [81,228], "a": 1 },
 						{ "px": [1216,384], "src": [256,0], "f": 0, "t": 4, "d": [81,229], "a": 1 },
+						{ "px": [1280,384], "src": [256,0], "f": 0, "t": 4, "d": [81,230], "a": 1 },
+						{ "px": [1344,384], "src": [256,0], "f": 0, "t": 4, "d": [81,231], "a": 1 },
 						{ "px": [1408,384], "src": [256,0], "f": 0, "t": 4, "d": [81,232], "a": 1 },
 						{ "px": [1472,384], "src": [256,0], "f": 0, "t": 4, "d": [81,233], "a": 1 },
 						{ "px": [1536,384], "src": [320,0], "f": 0, "t": 5, "d": [81,234], "a": 1 },
 						{ "px": [1600,384], "src": [256,0], "f": 0, "t": 4, "d": [81,235], "a": 1 },
+						{ "px": [1664,384], "src": [320,0], "f": 0, "t": 5, "d": [81,236], "a": 1 },
+						{ "px": [1728,384], "src": [320,0], "f": 0, "t": 5, "d": [81,237], "a": 1 },
 						{ "px": [1792,384], "src": [320,0], "f": 0, "t": 5, "d": [81,238], "a": 1 },
 						{ "px": [1856,384], "src": [320,0], "f": 0, "t": 5, "d": [81,239], "a": 1 },
 						{ "px": [1920,384], "src": [256,0], "f": 0, "t": 4, "d": [81,240], "a": 1 },
@@ -12241,14 +12240,6 @@
 						{ "px": [2048,384], "src": [320,0], "f": 0, "t": 5, "d": [81,242], "a": 1 },
 						{ "px": [64,320], "src": [192,0], "f": 1, "t": 3, "d": [85,176], "a": 1 },
 						{ "px": [2112,320], "src": [192,0], "f": 0, "t": 3, "d": [85,208], "a": 1 },
-						{ "px": [448,384], "src": [320,0], "f": 0, "t": 5, "d": [146,217], "a": 1 },
-						{ "px": [512,384], "src": [320,0], "f": 0, "t": 5, "d": [146,218], "a": 1 },
-						{ "px": [896,384], "src": [320,0], "f": 0, "t": 5, "d": [146,224], "a": 1 },
-						{ "px": [960,384], "src": [320,0], "f": 0, "t": 5, "d": [146,225], "a": 1 },
-						{ "px": [1280,384], "src": [320,0], "f": 0, "t": 5, "d": [146,230], "a": 1 },
-						{ "px": [1344,384], "src": [320,0], "f": 0, "t": 5, "d": [146,231], "a": 1 },
-						{ "px": [1664,384], "src": [256,0], "f": 0, "t": 4, "d": [146,236], "a": 1 },
-						{ "px": [1728,384], "src": [256,0], "f": 0, "t": 4, "d": [146,237], "a": 1 },
 						{ "px": [448,256], "src": [128,0], "f": 0, "t": 2, "d": [141,147], "a": 1 },
 						{ "px": [512,256], "src": [128,0], "f": 0, "t": 2, "d": [141,148], "a": 1 },
 						{ "px": [896,256], "src": [128,0], "f": 0, "t": 2, "d": [141,154], "a": 1 },
@@ -12256,15 +12247,7 @@
 						{ "px": [1280,256], "src": [128,0], "f": 0, "t": 2, "d": [141,160], "a": 1 },
 						{ "px": [1344,256], "src": [128,0], "f": 0, "t": 2, "d": [141,161], "a": 1 },
 						{ "px": [1664,256], "src": [128,0], "f": 0, "t": 2, "d": [141,166], "a": 1 },
-						{ "px": [1728,256], "src": [128,0], "f": 0, "t": 2, "d": [141,167], "a": 1 },
-						{ "px": [448,384], "src": [64,0], "f": 0, "t": 1, "d": [140,217], "a": 1 },
-						{ "px": [512,384], "src": [64,0], "f": 0, "t": 1, "d": [140,218], "a": 1 },
-						{ "px": [896,384], "src": [64,0], "f": 0, "t": 1, "d": [140,224], "a": 1 },
-						{ "px": [960,384], "src": [64,0], "f": 0, "t": 1, "d": [140,225], "a": 1 },
-						{ "px": [1280,384], "src": [64,0], "f": 0, "t": 1, "d": [140,230], "a": 1 },
-						{ "px": [1344,384], "src": [64,0], "f": 0, "t": 1, "d": [140,231], "a": 1 },
-						{ "px": [1664,384], "src": [64,0], "f": 0, "t": 1, "d": [140,236], "a": 1 },
-						{ "px": [1728,384], "src": [64,0], "f": 0, "t": 1, "d": [140,237], "a": 1 }
+						{ "px": [1728,256], "src": [128,0], "f": 0, "t": 2, "d": [141,167], "a": 1 }
 					],
 					"seed": 436110,
 					"overrideTilesetUid": null,
@@ -18332,66 +18315,6 @@
 							],
 							"__worldX": 8416,
 							"__worldY": -5312
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [8,16],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "11923380-3740-11f0-b20c-2171d49ee06a",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [544,1088],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 7456,
-							"__worldY": -4800
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [19,17],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "1263db60-3740-11f0-b20c-0f6ef55defee",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [1248,1152],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 8160,
-							"__worldY": -4736
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [29,10],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "133e35d0-3740-11f0-b20c-6fb29cd5e6c6",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [1888,704],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 8800,
-							"__worldY": -5184
 						}
 					]
 				},
@@ -28692,88 +28615,7 @@
 					"seed": 790695,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": [
-						{
-							"__identifier": "candles",
-							"__grid": [5,10],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "eca3fab0-3740-11f0-b20c-eb5c9e4cd698",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [352,704],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 13280,
-							"__worldY": -4160
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [10,16],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "ed5a2b50-3740-11f0-b20c-3fa564d04998",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [672,1088],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 13600,
-							"__worldY": -3776
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [16,22],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "eec442a0-3740-11f0-b20c-292ee90f9419",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [1056,1472],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 13984,
-							"__worldY": -3392
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [5,27],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "ef765490-3740-11f0-b20c-4bf6ba7dc0e6",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [352,1792],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 13280,
-							"__worldY": -3072
-						}
-					]
+					"entityInstances": []
 				},
 				{
 					"__identifier": "backgroundcosmetic",
@@ -28798,7 +28640,108 @@
 					"seed": 6333121,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "walllamp",
+							"__grid": [10,28],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "7c0964b0-3740-11f0-8c3f-afe5537226f1",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [672,1856],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 13600,
+							"__worldY": -3008
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [10,22],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "7c6407d0-3740-11f0-8c3f-5589d15a6c2b",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [672,1472],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 13600,
+							"__worldY": -3392
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [10,18],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "7d3c3f60-3740-11f0-8c3f-ff523a2fedc3",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [672,1216],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 13600,
+							"__worldY": -3648
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [10,13],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "7db73bc0-3740-11f0-8c3f-3990bdaaf5ba",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [672,896],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 13600,
+							"__worldY": -3968
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [10,8],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "7e66dcb0-3740-11f0-8c3f-af6c18b297a6",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [672,576],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 13600,
+							"__worldY": -4288
+						}
+					]
 				},
 				{
 					"__identifier": "collider",
@@ -30459,186 +30402,6 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "candles",
-							"__grid": [5,32],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "1360dc30-3740-11f0-b20c-bba2c8e6cc75",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [352,2112],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 17952,
-							"__worldY": -2432
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [15,29],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "1458f7d0-3740-11f0-b20c-0b7a1c027b3d",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [992,1920],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 18592,
-							"__worldY": -2624
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [4,26],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "15c72dd0-3740-11f0-b20c-cbd48f62889e",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [288,1728],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 17888,
-							"__worldY": -2816
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [10,23],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "1648e0f0-3740-11f0-b20c-c31d32bb9bc6",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [672,1536],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 18272,
-							"__worldY": -3008
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [16,20],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "16d0d5a0-3740-11f0-b20c-6d2d82dbb279",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [1056,1344],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 18656,
-							"__worldY": -3200
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [16,14],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "19d22ec0-3740-11f0-b20c-1deaa3a0341f",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [1056,960],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 18656,
-							"__worldY": -3584
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [4,17],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "1aef1070-3740-11f0-b20c-fda41b6d99c0",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [288,1152],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 17888,
-							"__worldY": -3392
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [9,11],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "1d961490-3740-11f0-b20c-598e39471320",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [608,768],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 18208,
-							"__worldY": -3776
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [5,8],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "1e15f2f0-3740-11f0-b20c-6baf6dfa8d09",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [352,576],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 17952,
-							"__worldY": -3968
-						},
-						{
 							"__identifier": "standing_flag",
 							"__grid": [19,33],
 							"__pivot": [0.5,1],
@@ -30653,6 +30416,166 @@
 							"fieldInstances": [],
 							"__worldX": 18848,
 							"__worldY": -2368
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [8,9],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "93ae3ff0-3740-11f0-8c3f-9f3d521014ff",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [544,640],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 18144,
+							"__worldY": -3904
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [13,9],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "943ff8a0-3740-11f0-8c3f-45ea20811397",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [864,640],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 18464,
+							"__worldY": -3904
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [13,16],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "9506cb10-3740-11f0-8c3f-97a3ab972e47",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [864,1088],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 18464,
+							"__worldY": -3456
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [8,16],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "95c07e20-3740-11f0-8c3f-49b3f637cfbb",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [544,1088],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 18144,
+							"__worldY": -3456
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [8,24],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "966e9870-3740-11f0-8c3f-951263186385",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [544,1600],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 18144,
+							"__worldY": -2944
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [14,24],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "96e41690-3740-11f0-8c3f-c10bef434123",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [928,1600],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 18528,
+							"__worldY": -2944
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [8,31],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "996a9a60-3740-11f0-8c3f-e55e1553b27a",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [544,2048],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 18144,
+							"__worldY": -2496
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [14,31],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "9a34ef40-3740-11f0-8c3f-514223610a97",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [928,2048],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 18528,
+							"__worldY": -2496
 						}
 					]
 				},
@@ -39190,148 +39113,7 @@
 					"seed": 790695,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": [
-						{
-							"__identifier": "candles",
-							"__grid": [5,18],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "04383eb0-3740-11f0-b20c-5b589599ce13",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [352,1216],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 13024,
-							"__worldY": 7744
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [12,18],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "04f4b0e0-3740-11f0-b20c-afa13aaad316",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [800,1216],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 13472,
-							"__worldY": 7744
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [5,8],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "05ae3ce0-3740-11f0-b20c-43880b8e2618",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [352,576],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 13024,
-							"__worldY": 7104
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [13,3],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "06690160-3740-11f0-b20c-5544ce97525a",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [864,256],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 13536,
-							"__worldY": 6784
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [29,3],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "0784f8b0-3740-11f0-b20c-193d103e7482",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [1888,256],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 14560,
-							"__worldY": 6784
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [29,8],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "08194970-3740-11f0-b20c-e9ca5f16f4a4",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [1888,576],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 14560,
-							"__worldY": 7104
-						},
-						{
-							"__identifier": "candles",
-							"__grid": [29,18],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 132, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "08ba6b70-3740-11f0-b20c-732f31df3e45",
-							"width": 64,
-							"height": 64,
-							"defUid": 155,
-							"px": [1888,1216],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 156, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 157, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 158, "realEditorValues": [] }
-							],
-							"__worldX": 14560,
-							"__worldY": 7744
-						}
-					]
+					"entityInstances": []
 				},
 				{
 					"__identifier": "backgroundcosmetic",
@@ -39356,7 +39138,128 @@
 					"seed": 6333121,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "walllamp",
+							"__grid": [8,7],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "4284d080-3740-11f0-8c3f-972a7d41b07d",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [544,512],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 13216,
+							"__worldY": 7040
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [17,7],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "43229720-3740-11f0-8c3f-59bbb6c02479",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [1120,512],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 13792,
+							"__worldY": 7040
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [27,7],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "43964080-3740-11f0-8c3f-fd957d809e91",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [1760,512],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 14432,
+							"__worldY": 7040
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [26,16],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "452a4e00-3740-11f0-8c3f-efb941fff3b5",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [1696,1088],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 14368,
+							"__worldY": 7616
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [17,16],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "45e316b0-3740-11f0-8c3f-7ff7f867e810",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [1120,1088],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 13792,
+							"__worldY": 7616
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [8,16],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "46d47b90-3740-11f0-8c3f-a3198caeda1c",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [544,1088],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 13216,
+							"__worldY": 7616
+						}
+					]
 				},
 				{
 					"__identifier": "collider",
@@ -40757,128 +40660,7 @@
 					"seed": 790695,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": [
-						{
-							"__identifier": "standing_light",
-							"__grid": [5,16],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 134, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "027c5350-3740-11f0-b20c-9d53ea3d4a63",
-							"width": 64,
-							"height": 64,
-							"defUid": 163,
-							"px": [352,1088],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 164, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 165, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 166, "realEditorValues": [] }
-							],
-							"__worldX": 13088,
-							"__worldY": -960
-						},
-						{
-							"__identifier": "standing_light",
-							"__grid": [12,16],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 134, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "03046f10-3740-11f0-b20c-ed4be50928b9",
-							"width": 64,
-							"height": 64,
-							"defUid": 163,
-							"px": [800,1088],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 164, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 165, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 166, "realEditorValues": [] }
-							],
-							"__worldX": 13536,
-							"__worldY": -960
-						},
-						{
-							"__identifier": "standing_light",
-							"__grid": [14,5],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 134, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "03bb14e0-3740-11f0-b20c-c599c566134d",
-							"width": 64,
-							"height": 64,
-							"defUid": 163,
-							"px": [928,384],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 164, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 165, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 166, "realEditorValues": [] }
-							],
-							"__worldX": 13664,
-							"__worldY": -1664
-						},
-						{
-							"__identifier": "standing_light",
-							"__grid": [21,5],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 134, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "0436d490-3740-11f0-b20c-2f845c500238",
-							"width": 64,
-							"height": 64,
-							"defUid": 163,
-							"px": [1376,384],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 164, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 165, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 166, "realEditorValues": [] }
-							],
-							"__worldX": 14112,
-							"__worldY": -1664
-						},
-						{
-							"__identifier": "standing_light",
-							"__grid": [23,12],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 134, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "04b887b0-3740-11f0-b20c-6ba33b55c5b7",
-							"width": 64,
-							"height": 64,
-							"defUid": 163,
-							"px": [1504,832],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 164, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 165, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 166, "realEditorValues": [] }
-							],
-							"__worldX": 14240,
-							"__worldY": -1216
-						},
-						{
-							"__identifier": "standing_light",
-							"__grid": [30,12],
-							"__pivot": [0.5,1],
-							"__tags": [ "cosmetic", "light" ],
-							"__tile": { "tilesetUid": 134, "x": 0, "y": 0, "w": 64, "h": 64 },
-							"__smartColor": "#FFF1B5",
-							"iid": "053cd2e0-3740-11f0-b20c-659be4c59312",
-							"width": 64,
-							"height": 64,
-							"defUid": 163,
-							"px": [1952,832],
-							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 164, "realEditorValues": [] },
-								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 165, "realEditorValues": [] },
-								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 166, "realEditorValues": [] }
-							],
-							"__worldX": 14688,
-							"__worldY": -1216
-						}
-					]
+					"entityInstances": []
 				},
 				{
 					"__identifier": "backgroundcosmetic",
@@ -40903,7 +40685,108 @@
 					"seed": 6333121,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "chandelier",
+							"__grid": [7,3],
+							"__pivot": [0.5,0],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 133, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "5d5c2700-3740-11f0-8c3f-1da7f00f0e1c",
+							"width": 64,
+							"height": 64,
+							"defUid": 159,
+							"px": [480,192],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 160, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 161, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 162, "realEditorValues": [] }
+							],
+							"__worldX": 13216,
+							"__worldY": -1856
+						},
+						{
+							"__identifier": "chandelier",
+							"__grid": [18,3],
+							"__pivot": [0.5,0],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 133, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "5e254360-3740-11f0-8c3f-83f7c450a0b7",
+							"width": 64,
+							"height": 64,
+							"defUid": 159,
+							"px": [1184,192],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 160, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 161, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 162, "realEditorValues": [] }
+							],
+							"__worldX": 13920,
+							"__worldY": -1856
+						},
+						{
+							"__identifier": "chandelier",
+							"__grid": [27,3],
+							"__pivot": [0.5,0],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 133, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "5eea6820-3740-11f0-8c3f-3f895b05ee9a",
+							"width": 64,
+							"height": 64,
+							"defUid": 159,
+							"px": [1760,192],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 160, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 161, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 162, "realEditorValues": [] }
+							],
+							"__worldX": 14496,
+							"__worldY": -1856
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [12,12],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "622dac40-3740-11f0-8c3f-f70a11c83a4c",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [800,832],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 13536,
+							"__worldY": -1216
+						},
+						{
+							"__identifier": "walllamp",
+							"__grid": [23,12],
+							"__pivot": [0.5,1],
+							"__tags": [ "cosmetic", "light" ],
+							"__tile": { "tilesetUid": 135, "x": 0, "y": 0, "w": 64, "h": 64 },
+							"__smartColor": "#FFF1B5",
+							"iid": "64835c10-3740-11f0-8c3f-f3f1a91a1713",
+							"width": 64,
+							"height": 64,
+							"defUid": 167,
+							"px": [1504,832],
+							"fieldInstances": [
+								{ "__identifier": "range", "__type": "Float", "__value": 100, "__tile": null, "defUid": 168, "realEditorValues": [] },
+								{ "__identifier": "intensity", "__type": "Float", "__value": 1, "__tile": null, "defUid": 169, "realEditorValues": [] },
+								{ "__identifier": "color", "__type": "Color", "__value": "#FFF1B5", "__tile": null, "defUid": 170, "realEditorValues": [] }
+							],
+							"__worldX": 14240,
+							"__worldY": -1216
+						}
+					]
 				},
 				{
 					"__identifier": "collider",
