@@ -21,6 +21,7 @@ use rand::{seq::SliceRandom, thread_rng};
 use crate::{
     AgedSystems, AppSystems, PausableSystems,
     asset_tracking::LoadResource,
+    audio::music,
     game::{
         age::{Age, Aged, Dead, Timed},
         animate::{AnimationConfig, Directional},
@@ -280,7 +281,7 @@ impl Default for SpellCap {
             strength: 1.0,
             speed: 1.0,
             items: Default::default(),
-            timer: Timer::from_seconds(2.0, TimerMode::Once),
+            timer: Timer::from_seconds(0.0, TimerMode::Once),
         }
     }
 }
@@ -356,6 +357,8 @@ pub struct PlayerAssets {
     pub sprite_book: Handle<Image>,
     pub atlas_book: Handle<TextureAtlasLayout>,
 
+    #[dependency]
+    music: Handle<AudioSource>,
 }
 
 impl FromWorld for PlayerAssets {
@@ -375,6 +378,8 @@ impl FromWorld for PlayerAssets {
 
         let assets = world.resource::<AssetServer>();
         Self {
+            music: assets.load("audio/music/levelOST/combined_track.ogg"),
+
             ysprite_idle: assets.load("sprites/entities/player/young/idle.png"),
             ysprite_run: assets.load("sprites/entities/player/young/run.png"),
             ysprite_jump: assets.load("sprites/entities/player/young/jump.png"),
@@ -549,7 +554,12 @@ fn init_player(
                 ..Default::default()
             },
         ))
-        .insert((Timed::default(), Aged::default(), SpellCap::default()))
+        .insert((
+            Timed::default(),
+            Aged::default(),
+            SpellCap::default(),
+            music(playerassets.music.clone()),
+        ))
         .with_child((
             //Book
             Transform::from_xyz(35.0, 10.0, 1.0),

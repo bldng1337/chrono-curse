@@ -24,19 +24,21 @@ fn spawn_credits_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
         GlobalZIndex(2),
         StateScoped(Menu::Credits),
         children![
-            widget::header("Created by"),
+            widget::header("Key Binds"),
             created_by(),
-            widget::header("Assets"),
-            assets(),
-            widget::button("Back", go_back_on_click,&asset_server),
+            // widget::header("Assets"),
+            // assets(),
+            widget::button("Back", go_back_on_click, &asset_server),
         ],
     ));
 }
 
 fn created_by() -> impl Bundle {
     grid(vec![
-        ["Joe Shmoe", "Implemented alligator wrestling AI"],
-        ["Jane Doe", "Made the music for the alien invasion"],
+        ["WASD", "Movement"],
+        ["Shift", "Dash"],
+        ["R", "Turn back Time"],
+        ["Mouse Click", "Cast"],
     ])
 }
 

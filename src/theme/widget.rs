@@ -22,7 +22,7 @@ pub fn ui_root(name: impl Into<Cow<'static, str>>) -> impl Bundle {
             align_items: AlignItems::Center,
             justify_content: JustifyContent::Center,
             flex_direction: FlexDirection::Column,
-            row_gap: Px(20.0),
+            row_gap: Px(10.0),
             ..default()
         },
         // Don't block picking events for other UI roots.
@@ -66,8 +66,8 @@ where
         action,
         (
             Node {
-                width: Px(380.0),
-                height: Px(120.0),
+                width: Px(360.0),
+                height: Px(100.0),
                 align_items: AlignItems::Center,
                 justify_content: JustifyContent::Center,
                 ..default()

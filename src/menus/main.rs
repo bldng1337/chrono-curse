@@ -5,7 +5,9 @@ use bevy::{
     prelude::*,
 };
 
-use crate::{asset_tracking::ResourceHandles, menus::Menu, screens::Screen, theme::widget};
+use crate::{
+    asset_tracking::ResourceHandles, audio::music, menus::Menu, screens::Screen, theme::widget,
+};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(OnEnter(Menu::Main), spawn_main_menu);
@@ -16,6 +18,7 @@ fn spawn_main_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
         widget::ui_root("Main Menu"),
         GlobalZIndex(2),
         StateScoped(Menu::Main),
+        music(asset_server.load("audio/music/titlescreen/Chrono_Intro.ogg")),
         #[cfg(not(target_family = "wasm"))]
         children![
             (
@@ -38,7 +41,7 @@ fn spawn_main_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
             ),
             widget::button("Play", enter_loading_or_gameplay_screen, &asset_server),
             widget::button("Settings", open_settings_menu, &asset_server),
-            // widget::button("Credits", open_credits_menu, &asset_server),
+            widget::button("Controls", open_credits_menu, &asset_server),
             widget::button("Exit", exit_app, &asset_server),
         ],
         #[cfg(target_family = "wasm")]

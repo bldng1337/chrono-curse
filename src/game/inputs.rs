@@ -129,7 +129,7 @@ fn shoot(
         let shootpos=transform.translation();
         if actions.state::<Attack>().unwrap() == ActionState::Fired && spells.timer.finished() {
             spells.timer =
-                Timer::from_seconds((2.0 / (1.0 + spells.speed / 10.0)) as f32, TimerMode::Once);
+                Timer::from_seconds((1.0 / (1.0 + spells.speed / 10.0)) as f32, TimerMode::Once);
             let dir = (pos - shootpos.xy()).normalize();
             let atlas = TextureAtlas {
                 layout: assets.atlas_proj.clone(),
