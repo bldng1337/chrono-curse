@@ -23,6 +23,8 @@ use crate::{
 pub(super) fn plugin(app: &mut App) {
     app.load_resource::<KnightAssets>();
     app.register_ldtk_entity_for_layer::<KnightBundle>("enemies", "knight");
+    app.register_ldtk_entity_for_layer::<KnightBundle>("enemies", "knight2");
+    app.register_ldtk_entity_for_layer::<KnightBundle>("enemies", "knight3");
 
     app.add_systems(
         Update,

@@ -67,6 +67,7 @@ impl Sizeable for Aabb2d {
 struct RoomRef {
     bb: Aabb2d,
     levelid: String,
+    difficulty: i32,
     doors: Vec<Aabb2d>,
     doorsizes: Vec<Vec2>,
 }
@@ -142,6 +143,10 @@ impl From<&Level> for RoomRef {
             doors,
             doorsizes,
             levelid: value.iid.clone(),
+            difficulty: match value.field_instances.get(0).unwrap().value {
+                FieldValue::Int(Some(num)) => num,
+                _ => 1,
+            },
         }
     }
 }
@@ -164,8 +169,16 @@ fn world_gen(
     let mut doors: Vec<Aabb2d> = Vec::new();
     let mut rng = thread_rng();
     for door in worldgen.doors.clone() {
+        let dist = door.center().length_squared();
         worldgen.rooms.shuffle(&mut rng);
         'room: for roomref in &worldgen.rooms {
+            let lowdiff_score = ((roomref.difficulty - 1) as f32) * 6000.0;
+            let upperdiff_score = ((roomref.difficulty + 1) as f32) * 6000.0;
+            if !((lowdiff_score * lowdiff_score)..(upperdiff_score * upperdiff_score))
+                .contains(&dist)
+            {
+                continue;
+            }
             if !roomref.has_door(&door.get_size()) {
                 continue;
             }

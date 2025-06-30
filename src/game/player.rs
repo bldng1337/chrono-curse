@@ -13,6 +13,7 @@ use bevy_light_2d::light::AmbientLight2d;
 use bevy_tnua::{
     TnuaAction, TnuaAnimatingState,
     builtins::{TnuaBuiltinDash, TnuaBuiltinJumpState},
+    control_helpers::TnuaSimpleAirActionsCounter,
     prelude::{TnuaBuiltinJump, TnuaBuiltinWalk, TnuaController},
 };
 use bevy_tnua_avian2d::TnuaAvian2dSensorShape;
@@ -559,6 +560,7 @@ fn init_player(
             Aged::default(),
             SpellCap::default(),
             music(playerassets.music.clone()),
+            TnuaSimpleAirActionsCounter::default(),
         ))
         .with_child((
             //Book

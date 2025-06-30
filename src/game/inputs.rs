@@ -1,4 +1,4 @@
-use crate::game::age::Timed;
+use crate::game::age::{Age, Timed};
 use crate::game::animate::{AnimationConfig, Directional};
 use crate::game::enemies::ghost::GhostAssets;
 use crate::game::player::Book;
@@ -17,6 +17,7 @@ use bevy::prelude::Vec2;
 use bevy::{prelude::*, window::PrimaryWindow};
 use bevy_enhanced_input::prelude::*;
 use bevy_light_2d::light::PointLight2d;
+use bevy_tnua::control_helpers::TnuaSimpleAirActionsCounter;
 use bevy_tnua::{builtins::TnuaBuiltinDash, math::Float, prelude::*};
 
 #[derive(InputContext)]
@@ -41,6 +42,10 @@ struct Dash;
 #[derive(Debug, InputAction)]
 #[input_action(output = Vec2)]
 struct Move;
+
+#[derive(Debug, InputAction)]
+#[input_action(output = Vec2)]
+struct Aim;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_input_context::<DefaultContext>();
@@ -73,14 +78,22 @@ fn init_inputs(mut commands: Commands) {
     let mut actions = Actions::<DefaultContext>::default();
     actions
         .bind::<Jump>()
-        .to((KeyCode::Space, GamepadButton::South));
+        .to((KeyCode::Space, GamepadButton::RightTrigger));
     actions.bind::<Dash>().to((
         KeyCode::ShiftLeft,
         KeyCode::ShiftRight,
-        GamepadButton::Start,
+        GamepadButton::LeftTrigger,
     ));
-    actions.bind::<Attack>().to((MouseButton::Left,));
-    actions.bind::<Turnback>().to((KeyCode::KeyR,));
+    actions
+        .bind::<Attack>()
+        .to((MouseButton::Left, GamepadButton::RightThumb));
+    actions
+        .bind::<Turnback>()
+        .to((KeyCode::KeyR, GamepadButton::LeftTrigger2));
+    actions
+        .bind::<Aim>()
+        .to((Axial::right_stick(),))
+        .with_modifiers(DeadZone::default());
     actions
         .bind::<Move>()
         .to((
@@ -126,7 +139,7 @@ fn shoot(
         .map(|ray| ray.origin.truncate())
     {
         let pos = world_position;
-        let shootpos=transform.translation();
+        let shootpos = transform.translation();
         if actions.state::<Attack>().unwrap() == ActionState::Fired && spells.timer.finished() {
             spells.timer =
                 Timer::from_seconds((1.0 / (1.0 + spells.speed / 10.0)) as f32, TimerMode::Once);
@@ -148,7 +161,7 @@ fn shoot(
                     target: ProjectileTarget::Enemies,
                     size: size / 2.0,
                     dmg: (40.0 + spells.strength * 20.0) as f32,
-                    dir: dir * 230.0 + (spells.speed * 50.0) as f32, //
+                    dir: dir * 300.0 + (spells.speed * 50.0) as f32, //
                 },
                 Sprite {
                     image: assets.sprite_proj.clone(),
@@ -255,13 +268,21 @@ fn shoot(
 
 fn movement(
     actions: Single<&Actions<DefaultContext>>,
-    mut query: Query<(&mut TnuaController, &mut Aged, &mut Player)>,
+    mut query: Query<(
+        &mut TnuaController,
+        &mut Aged,
+        &mut Player,
+        &mut TnuaSimpleAirActionsCounter,
+    )>,
     time: Res<Time>,
 ) {
-    let Ok((mut controller, mut aged, mut player)) = query.single_mut() else {
+    let Ok((mut controller, mut aged, mut player, mut air_actions_counter)) = query.single_mut()
+    else {
         return;
     };
+    air_actions_counter.update(controller.as_ref());
     player.dashtimer.tick(time.delta());
+    let age = aged.to_age();
     let actions = actions.into_inner();
 
     let direction = actions.value::<Move>().unwrap();
@@ -282,12 +303,45 @@ fn movement(
     if actions.state::<Dash>().unwrap() == ActionState::Fired
         && direction.length_squared() > 0.0
         && player.dashtimer.finished()
+        && age == Age::Young
     {
         player.dashtimer.reset();
         controller.action(TnuaBuiltinDash {
             displacement: Vec3::new(direction.x, direction.y, 0.0) * 70.0,
             speed: 800.0,
             allow_in_air: true,
+            acceleration: Float::INFINITY,
+            brake_acceleration: Float::INFINITY,
+            brake_to_speed: 250.0,
+            ..TnuaBuiltinDash::default()
+        });
+    }
+
+    if actions.state::<Dash>().unwrap() == ActionState::Fired
+        && player.dashtimer.finished()
+        && age == Age::Old
+    {
+        player.dashtimer = Timer::from_seconds(0.1, TimerMode::Once);
+        controller.action(TnuaBuiltinDash {
+            displacement: Vec3::new(direction.x, -0.06, 0.0) * 50.0,
+            speed: 310.0,
+            allow_in_air: true,
+            acceleration: 900.0,
+            brake_acceleration: 800.0,
+            brake_to_speed: 200.0,
+            ..TnuaBuiltinDash::default()
+        });
+    }
+
+    if actions.state::<Dash>().unwrap() == ActionState::Fired
+        && player.dashtimer.finished()
+        && age == Age::Ancient
+    {
+        player.dashtimer = Timer::from_seconds(0.3, TimerMode::Once);
+        controller.action(TnuaBuiltinDash {
+            displacement: Vec3::new(direction.x, direction.y, 0.0) * 100.0,
+            speed: 4300.0,
+            allow_in_air: air_actions_counter.air_count_for(TnuaBuiltinJump::NAME) <= 3,
             acceleration: Float::INFINITY,
             brake_acceleration: Float::INFINITY,
             brake_to_speed: 250.0,

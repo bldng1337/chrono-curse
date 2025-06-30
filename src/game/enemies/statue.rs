@@ -31,6 +31,8 @@ use crate::{
 pub(super) fn plugin(app: &mut App) {
     app.load_resource::<StatueAssets>();
     app.register_ldtk_entity_for_layer::<StatueBundle>("enemies", "statue");
+    app.register_ldtk_entity_for_layer::<StatueBundle>("enemies", "statue2");
+    app.register_ldtk_entity_for_layer::<StatueBundle>("enemies", "statue3");
 
     app.add_systems(
         Update,

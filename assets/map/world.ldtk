@@ -3153,6 +3153,22 @@
 							],
 							"__worldX": 4032,
 							"__worldY": -768
+						},
+						{
+							"__identifier": "death_rect",
+							"__grid": [27,17],
+							"__pivot": [0,0],
+							"__tags": ["region"],
+							"__tile": null,
+							"__smartColor": "#EAD4AA",
+							"iid": "9c985550-3740-11f0-9fe2-018f4a3d6161",
+							"width": 832,
+							"height": 128,
+							"defUid": 186,
+							"px": [1728,1088],
+							"fieldInstances": [],
+							"__worldX": 1088,
+							"__worldY": -448
 						}
 					]
 				},
@@ -6967,6 +6983,22 @@
 							"fieldInstances": [],
 							"__worldX": -736,
 							"__worldY": 480
+						},
+						{
+							"__identifier": "rectregion",
+							"__grid": [39,5],
+							"__pivot": [0,0],
+							"__tags": ["region"],
+							"__tile": null,
+							"__smartColor": "#EAD4AA",
+							"iid": "596929a0-3740-11f0-9fe2-11aa8858b8b6",
+							"width": 512,
+							"height": 384,
+							"defUid": 49,
+							"px": [2496,320],
+							"fieldInstances": [],
+							"__worldX": 1824,
+							"__worldY": 352
 						}
 					]
 				},

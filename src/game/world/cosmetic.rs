@@ -1,21 +1,148 @@
-use bevy::{platform::collections::HashMap, prelude::*};
+use bevy::{
+    ecs::{query, system::command},
+    platform::collections::HashMap,
+    prelude::*,
+};
 use bevy_ecs_ldtk::prelude::*;
 
 use avian2d::prelude::*;
 use bevy_light_2d::prelude::*;
 
-use crate::game::ysort::{YSort, BACKGROUND_LAYER, ENTITY_LAYER};
+use crate::{
+    game::{
+        age::Dead,
+        enemies::Enemy,
+        player::Player,
+        ysort::{BACKGROUND_LAYER, ENTITY_LAYER, YSort},
+    },
+    screens::Screen,
+};
 
 pub(super) fn plugin(app: &mut App) {
     // app.add_systems(
     //     Update,
     //     spawn_wall_collision.run_if(in_state(Screen::WorldGen)),
     // );
+
+    app.add_systems(OnEnter(Screen::Gameplay), (setup_sensor,setup_win));
+
     register_cosmetic_layer::<SimpleCosmeticBundleEntity>(app, "cosmetic");
     register_cosmetic_layer::<SimpleCosmeticBundleBackground>(app, "backgroundcosmetic");
     register_light_layer::<LightedBundleEntity>(app, "cosmetic");
     register_light_layer::<LightedBundleBackground>(app, "backgroundcosmetic");
     app.register_ldtk_entity_for_layer::<LightBundle>("cosmetic", "light");
+    app.register_ldtk_entity_for_layer::<KillBundle>("functional", "death_rect");
+    app.register_ldtk_entity_for_layer::<Gewinnbox>("functional", "rectregion");
+}
+
+fn setup_win(
+    mut query2: Query<(&mut Transform, Entity), Added<GewinnDjinn>>,
+    mut command: Commands,
+) {
+    for (mut transform, entity) in query2.iter_mut() {
+        transform.scale = Vec3::ONE;
+        command
+            .entity(entity)
+            .insert((Sensor, CollisionEventsEnabled))
+            .observe(
+                |trigger: Trigger<OnCollisionStart>,
+                 player_query: Query<&Player>,
+                 mut next_screen: ResMut<NextState<Screen>>| {
+                    let other_entity = trigger.collider;
+                    if player_query.contains(other_entity) {
+                        next_screen.set(Screen::GameWin);
+                    }
+                },
+            );
+    }
+}
+
+fn setup_sensor(
+    mut query: Query<(&mut Transform, Entity), Added<KillBill>>,
+
+    mut command: Commands,
+) {
+    for (mut transform, entity) in query.iter_mut() {
+        transform.scale = Vec3::ONE;
+        command
+            .entity(entity)
+            .insert((Sensor, CollisionEventsEnabled))
+            .observe(
+                |trigger: Trigger<OnCollisionStart>,
+                 player_query: Query<&Player>,
+                 enemy_query: Query<&Enemy>,
+                 mut commands: Commands| {
+                    let other_entity = trigger.collider;
+                    if player_query.contains(other_entity) || enemy_query.contains(other_entity) {
+                        commands.entity(other_entity).insert(Dead);
+                    }
+                },
+            );
+    }
+}
+
+#[derive(Component, Clone, Default)]
+struct GewinnDjinn;
+
+#[derive(Component, Clone, Default)]
+struct KillBill;
+
+#[derive(Clone, Default, Bundle)]
+struct Gewinnbox {
+    friction: Friction,
+    rigidbody: RigidBody,
+    collider: Collider,
+    marker: GewinnDjinn,
+}
+
+impl LdtkEntity for Gewinnbox {
+    fn bundle_entity(
+        entity_instance: &EntityInstance,
+        layer_instance: &LayerInstance,
+        tileset: Option<&Handle<Image>>,
+        tileset_definition: Option<&TilesetDefinition>,
+        asset_server: &AssetServer,
+        texture_atlases: &mut Assets<TextureAtlasLayout>,
+    ) -> Self {
+        Self {
+            marker: Default::default(),
+            friction: Friction::new(1.0),
+            rigidbody: RigidBody::Static,
+            collider: Collider::rectangle(
+                (entity_instance.width) as f32,
+                (entity_instance.height) as f32,
+            ),
+        }
+    }
+}
+
+#[derive(Clone, Default, Bundle)]
+struct KillBundle {
+    friction: Friction,
+    rigidbody: RigidBody,
+    collider: Collider,
+    marker: KillBill,
+}
+
+impl LdtkEntity for KillBundle {
+    fn bundle_entity(
+        entity_instance: &EntityInstance,
+        layer_instance: &LayerInstance,
+        tileset: Option<&Handle<Image>>,
+        tileset_definition: Option<&TilesetDefinition>,
+        asset_server: &AssetServer,
+        texture_atlases: &mut Assets<TextureAtlasLayout>,
+    ) -> Self {
+        KillBundle {
+            marker: KillBill,
+            friction: Friction::new(1.0),
+            rigidbody: RigidBody::Static,
+            collider: Collider::rectangle(
+                (entity_instance.width) as f32,
+                (entity_instance.height / 2) as f32,
+            ),
+        }
+    }
 }
 
 fn register_cosmetic_layer<B>(app: &mut App, layer: &str)

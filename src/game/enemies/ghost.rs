@@ -36,6 +36,8 @@ use crate::{
 pub(super) fn plugin(app: &mut App) {
     app.load_resource::<GhostAssets>();
     app.register_ldtk_entity_for_layer::<GhostBundle>("enemies", "ghost");
+    app.register_ldtk_entity_for_layer::<GhostBundle>("enemies", "ghost2");
+    app.register_ldtk_entity_for_layer::<GhostBundle>("enemies", "ghost3");
 
     app.add_systems(
         Update,

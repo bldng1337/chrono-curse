@@ -57,6 +57,7 @@ pub(super) fn plugin(app: &mut App) {
     );
 }
 
+#[derive(PartialEq)]
 pub enum Age {
     Young,
     Old,
@@ -65,7 +66,7 @@ pub enum Age {
 
 #[derive(Component)]
 pub struct Aged {
-    time: f64,
+    pub time: f64,
     turnback: bool,
     record: Timer,
 }
@@ -212,7 +213,7 @@ fn time_reverse(
     let Ok(mut aged) = aged_query.single_mut() else {
         return;
     };
-    aged.time -= time.delta_secs_f64() * 2.0;
+    aged.time -= time.delta_secs_f64() * 10.0;
     if aged.time <= 0.0 {
         aged.time = 0.0;
         aged.turnback = false;

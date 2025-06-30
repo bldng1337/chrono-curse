@@ -38,7 +38,7 @@ fn created_by() -> impl Bundle {
         ["WASD", "Movement"],
         ["Shift", "Dash"],
         ["R", "Turn back Time"],
-        ["Mouse Click", "Cast"],
+        ["Left Mouse Click", "Cast"],
     ])
 }
 
